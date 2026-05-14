@@ -42,7 +42,5 @@ Run the Python script:
 ```Bash
 python main.py
 ```
-***
 or Dubble click the File
-***
 ---
