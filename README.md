@@ -35,18 +35,11 @@ Ensure you have Python installed, then install the dependencies:
 
 ```bash
 pip install pywebview spotipy colorthief PyQt6 requests
+```
 4. Running the App
 Run the Python script:
 
-Bash
+```Bash
 python main.py
-
+```
 ---
-
-### API.JSON
-
-```json
-{
-    "spotify_id": "",
-    "spotify_secret": ""
-}
