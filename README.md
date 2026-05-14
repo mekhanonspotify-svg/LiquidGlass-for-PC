@@ -24,12 +24,12 @@ A sleek, glassmorphic desktop controller for Spotify. This app provides a "Liqui
 
 ### 2. Configuration
 Create a file named `API.JSON` in the root folder of the project and paste your credentials:
-
+```bash
 {
     "spotify_id": "YOUR_CLIENT_ID_HERE",
     "spotify_secret": "YOUR_CLIENT_SECRET_HERE"
 }
-
+```
 ### 3. Installation
 Ensure you have Python installed, then install the dependencies:
 
@@ -42,4 +42,7 @@ Run the Python script:
 ```Bash
 python main.py
 ```
+***
+or Dubble click the File
+***
 ---
