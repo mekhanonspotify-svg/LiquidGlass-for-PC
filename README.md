@@ -1,34 +1,52 @@
 # 🎵 Liquid Glass Remote
 
-Liquid Glass Remote is a sleek, iOS-inspired desktop controller for Spotify. Built with Python and modern web technologies, it offers a vibrant, "glassmorphism" interface that dynamically adapts its background colors to match the album art of the music you're currently playing.
+Liquid Glass Remote is a sleek, iOS-inspired desktop controller for Spotify. It features a "glassmorphism" interface that dynamically adapts its background colors to match your current track's album art.
 
 ---
 
 ## ⚠️ Important Requirements
 
-*   **Active WiFi Connection:** This app communicates directly with Spotify's API. A stable internet connection is required for it to function.
-*   **Connection Speed:** Because the app fetches high-quality album art and extracts color data in real-time, **slower WiFi connections may cause the UI to lag behind** or experience delays in updating track information.
-
----
-
-## ✨ Features
-
-*   **Dynamic Color Extraction:** Background gradients change based on the current song's album art.
-*   **Full Playback Control:** Play/Pause, Skip, Previous, Shuffle, and Repeat.
-*   **Progress Tracking:** Seek through songs using the interactive slider.
-*   **Volume Control:** Adjust your Spotify volume directly from the remote.
-*   **Glassmorphism UI:** A beautiful, translucent interface with backdrop-blur effects.
+*   **Active WiFi Required:** The app communicates directly with Spotify's API and requires a stable connection.
+*   **Connection Speed:** Because the app fetches high-quality art and extracts colors in real-time, **slower WiFi will cause the app to lag behind** or experience delays in updating track info.
 
 ---
 
 ## 🚀 Setup Instructions
 
-Follow these steps to get the Liquid Glass Remote running on your machine:
+1.  **Install Dependencies:**
+    Run this command in your terminal to install the required libraries:
+    ```bash
+    pip install pywebview spotipy PyQt6 colorthief requests
+    
+Configure Spotify API:
 
-### 1. Prerequisites
-Ensure you have **Python 3.8+** installed. You will also need a Spotify Premium account (required by the Spotify Web API for playback control).
+Go to the Spotify Developer Dashboard.
 
-### 2. Install Dependencies
-Run the following command to install the necessary libraries:
-```bash
-pip install pywebview spotipy PyQt6 colorthief requests
+Create a new App and set the Redirect URI to: http://127.0.0.1:8888/callback
+
+Create a file named API.JSON in your project folder.
+
+Paste your client_id and client_secret into that file (use the JSON format provided below).
+
+Running the App:
+Execute the Python script:
+
+Bash
+python main.py
+
+    *On the first run, a browser window will open for you to log in and authorize the app.*
+
+---
+
+## 🛠️ Built With
+*   **Backend:** Python & Spotipy
+*   **Frontend:** HTML5/CSS3 (Liquid Glass UI)
+*   **Window Engine:** pywebview & PyQt6
+🔑 API.JSON File
+Create a file named API.JSON and paste this exact content inside it:
+
+JSON
+{
+    "spotify_id": "cfe201d7efe34d198cc49964721c0aa3",
+    "spotify_secret": "c6cb346940904c8cbd03e92327b9a54c"
+}
