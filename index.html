@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            height: 100vh; display: flex;
+            align-items: center; justify-content: center;
+            background: #000; color: white;
+            transition: background 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            overflow: hidden; user-select: none;
+        }
+        
+        #player-card {
+            width: 320px;
+            /* Liquid Glass Core Styles */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(50px) saturate(200%);
+            -webkit-backdrop-filter: blur(50px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.4); /* Highlight edge */
+            border-left: 1px solid rgba(255, 255, 255, 0.3); /* Highlight edge */
+            border-radius: 44px; /* Slightly softer iOS style curves */
+            padding: 30px;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.5), 
+                inset 0 0 20px rgba(255, 255, 255, 0.05); /* Internal glow */
+            display: flex; flex-direction: column;
+            transition: all 0.5s ease;
+        }
+
+        .art-wrapper {
+            position: relative; width: 100%; aspect-ratio: 1;
+            border-radius: 24px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            background: #111;
+            overflow: hidden;
+        }
+        
+        #art { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+        
+        #app-logo {
+            position: absolute; bottom: 12px; right: 12px;
+            width: 24px; height: 24px;
+            background-size: contain; background-repeat: no-repeat;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+        }
+
+        .info-section { margin-top: 28px; display: flex; flex-direction: column; overflow: hidden; text-align: center; }
+        #title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        #artist { font-size: 1.05rem; font-weight: 500; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
+
+        /* Modern iOS style range sliders */
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+        input[type=range]:focus { outline: none; }
+        input[type=range]::-webkit-slider-runnable-track { 
+            width: 100%; height: 6px; 
+            background: rgba(255,255,255,0.15); 
+            border-radius: 4px; 
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+        }
+        input[type=range]::-webkit-slider-thumb { 
+            -webkit-appearance: none; height: 16px; width: 16px; 
+            border-radius: 50%; background: #fff; 
+            margin-top: -5px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:active { transform: scale(1.2); }
+
+        .progress-container { margin-top: 24px; }
+        .times { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-top: 10px; }
+
+        .controls { margin-top: 24px; display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+        button { background: none; border: none; color: white; cursor: pointer; transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1); outline: none; }
+        button:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+        button:active { transform: scale(0.95); }
+        .main-btn { font-size: 2.2rem; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .sec-btn { font-size: 1.3rem; opacity: 0.5; }
+        .sec-btn.active { opacity: 1; color: #1DB954; filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.4)); }
+
+        .volume-container { display: flex; align-items: center; gap: 12px; margin-top: 28px; opacity: 0.7; }
+        .volume-container span { font-size: 0.9rem; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <div id="player-card">
+        <div class="art-wrapper">
+            <img id="art" src="">
+            <div id="app-logo"></div>
+        </div>
+        <div class="info-section">
+            <div id="title">Waiting for Spotify...</div>
+            <div id="artist">Open Spotify to begin</div>
+        </div>
+        <div class="progress-container">
+            <input type="range" id="progress-bar" min="0" value="0" onchange="seekAudio(this.value)" oninput="isDragging = true">
+            <div class="times">
+                <span id="time-current">0:00</span>
+                <span id="time-total">0:00</span>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="sec-btn" id="btn-shuffle" onclick="toggleShuffle()">🔀</button>
+            <button class="main-btn" onclick="skip(-1)">⏮</button>
+            <button class="main-btn" id="play-pause" style="font-size: 3.2rem;" onclick="toggle()">▶</button>
+            <button class="main-btn" onclick="skip(1)">⏭</button>
+            <button class="sec-btn" id="btn-repeat" onclick="toggleRepeat()">🔁</button>
+        </div>
+        <div class="volume-container">
+            <span>🔈</span>
+            <input type="range" id="volume-bar" min="0" max="100" oninput="changeVolume(this.value)">
+            <span>🔊</span>
+        </div>
+    </div>
+
+    <script>
+        const spotifyLogo = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
+        let isDragging = false;
+
+        function formatTime(ms) {
+            const totalSeconds = Math.floor(ms / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateUI(data) {
+            if (data.status === "success") {
+                document.getElementById('title').innerText = data.title;
+                document.getElementById('artist').innerText = data.artist;
+                document.getElementById('art').src = data.thumb;
+                document.getElementById('app-logo').style.backgroundImage = `url('${spotifyLogo}')`;
+
+                if(data.color) {
+                    const c = data.color;
+                    // Changed to a massive radial gradient that pushes up from the bottom left
+                    // This creates a vibrant "liquid" environment behind the glass UI
+                    document.body.style.background = `radial-gradient(120% 120% at 20% 100%, rgb(${c[0]},${c[1]},${c[2]}), #050505 80%)`;
+                    
+                    // We REMOVED the color injection into the card itself. 
+                    // Liquid glass looks best when it just refracts the background.
+                }
+            }
+        }
+
+        function toggle() { pywebview.api.toggle_audio(); }
+        function skip(dir) { pywebview.api.skip(dir).then(updateUI); }
+        function seekAudio(val) { isDragging = false; pywebview.api.set_time(val); }
+        function changeVolume(val) { pywebview.api.set_volume(val); }
+        function toggleShuffle() { pywebview.api.toggle_shuffle(); }
+        function toggleRepeat() { pywebview.api.toggle_repeat(); }
+
+        setInterval(() => {
+            pywebview.api.get_status().then(status => {
+                if (status.status === "success") {
+                    document.getElementById('play-pause').innerText = status.is_playing ? "⏸" : "▶";
+                    document.getElementById('btn-shuffle').classList.toggle('active', status.shuffle);
+                    
+                    const rBtn = document.getElementById('btn-repeat');
+                    rBtn.innerText = status.repeat === 'track' ? "🔂" : "🔁";
+                    rBtn.classList.toggle('active', status.repeat !== 'off');
+
+                    if (!isDragging) {
+                        document.getElementById('progress-bar').max = status.length;
+                        document.getElementById('progress-bar').value = status.time;
+                        document.getElementById('time-current').innerText = formatTime(status.time);
+                        document.getElementById('time-total').innerText = formatTime(status.length);
+                    }
+                    
+                    const vBar = document.getElementById('volume-bar');
+                    if (Math.abs(vBar.value - status.volume) > 2) vBar.value = status.volume;
+                }
+            });
+        }, 500);
+    </script>
+</body>
+</html>
