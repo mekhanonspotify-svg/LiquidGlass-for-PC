@@ -1,52 +1,52 @@
-# 🎵 Liquid Glass Remote
+# 🎵 Liquid Glass Spotify Remote
 
-Liquid Glass Remote is a sleek, iOS-inspired desktop controller for Spotify. It features a "glassmorphism" interface that dynamically adapts its background colors to match your current track's album art.
+A sleek, glassmorphic desktop controller for Spotify. This app provides a "Liquid Glass" interface that dynamically adapts its background colors to match the album art of the track currently playing.
 
----
+## ✨ Features
+*   **Dynamic Backgrounds:** Uses ColorThief to extract primary colors from album art for a vibrant, ambient glow.
+*   **Glassmorphism UI:** A modern, frosted-glass interface built with HTML/CSS/JS.
+*   **Full Control:** Toggle play/pause, skip tracks, adjust volume, and toggle shuffle/repeat.
+*   **Real-time Sync:** Tracks progress and playback status directly from your Spotify account.
 
 ## ⚠️ Important Requirements
-
-*   **Active WiFi Required:** The app communicates directly with Spotify's API and requires a stable connection.
-*   **Connection Speed:** Because the app fetches high-quality art and extracts colors in real-time, **slower WiFi will cause the app to lag behind** or experience delays in updating track info.
+*   **Active Wi-Fi Required:** This app communicates directly with Spotify's Web API. A stable internet connection is mandatory.
+*   **Network Performance:** Because the app fetches high-quality album art and metadata, **slower Wi-Fi connections may cause the UI to lag behind** or result in delayed playback updates.
 
 ---
 
-## 🚀 Setup Instructions
+## 🚀 Getting Started
 
-1.  **Install Dependencies:**
-    Run this command in your terminal to install the required libraries:
-    ```bash
-    pip install pywebview spotipy PyQt6 colorthief requests
-    
-Configure Spotify API:
+### 1. Get Spotify API Credentials
+1.  Log in to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard).
+2.  Click **Create app**.
+3.  Set the **Redirect URI** to: `http://127.0.0.1:8888/callback`
+4.  Copy your **Client ID** and **Client Secret**.
 
-Go to the Spotify Developer Dashboard.
+### 2. Configuration
+Create a file named `API.JSON` in the root folder of the project and paste your credentials:
 
-Create a new App and set the Redirect URI to: http://127.0.0.1:8888/callback
+{
+    "spotify_id": "YOUR_CLIENT_ID_HERE",
+    "spotify_secret": "YOUR_CLIENT_SECRET_HERE"
+}
 
-Create a file named API.JSON in your project folder.
+### 3. Installation
+Ensure you have Python installed, then install the dependencies:
 
-Paste your client_id and client_secret into that file (use the JSON format provided below).
-
-Running the App:
-Execute the Python script:
+```bash
+pip install pywebview spotipy colorthief PyQt6 requests
+4. Running the App
+Run the Python script:
 
 Bash
 python main.py
 
-    *On the first run, a browser window will open for you to log in and authorize the app.*
-
 ---
 
-## 🛠️ Built With
-*   **Backend:** Python & Spotipy
-*   **Frontend:** HTML5/CSS3 (Liquid Glass UI)
-*   **Window Engine:** pywebview & PyQt6
-🔑 API.JSON File
-Create a file named API.JSON and paste this exact content inside it:
+### API.JSON
 
-JSON
+```json
 {
-    "spotify_id": "cfe201d7efe34d198cc49964721c0aa3",
-    "spotify_secret": "c6cb346940904c8cbd03e92327b9a54c"
+    "spotify_id": "",
+    "spotify_secret": ""
 }
