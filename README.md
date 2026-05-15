@@ -4,7 +4,7 @@
 
 A **glassmorphism Spotify desktop remote** inspired by Apple’s **Liquid Glass** design language.
 
-Dynamic blur • Reactive colors • Device switching • Spotify controls • Python + PyWebView
+Dynamic blur • Reactive colors • Device switching • Spotify controls • Built with Python + PyWebView
 
 <img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
 
@@ -19,36 +19,45 @@ Dynamic blur • Reactive colors • Device switching • Spotify controls • P
 
 ---
 
-## 📄 Notes
-- 👾 There maybe currently lag and the app suddenly stopping, restart the app if it happens!
-- 👷 Im currently working on it working across devices connected to you're account
+## ✨ About
+
+**LiquidGlass for PC** is a desktop Spotify remote featuring a **dynamic glassmorphism UI**, reactive colors pulled from album artwork, animated blur effects, and seamless device switching.
+
+Inspired by Apple’s Liquid Glass aesthetic while bringing Spotify controls into a lightweight desktop experience.
+
+---
+
+## 📌 Notes
+
+- 👾 The app may occasionally lag or freeze. Restarting usually fixes the issue.
+- 👷 Cross-device support and stability improvements are currently in development.
 
 ---
 
 ## ⚠️ Important
 
-- 🛜 You need a stable good internet connection for it to work smoothly
-- 🌐 If youre connection is bad or your wifi is unstable it may lag behind and not work correctly!
+- 🛜 A stable internet connection is recommended for smooth playback syncing.
+- 🌐 Poor or unstable connections may cause delays or incorrect playback updates.
 
 ---
 
-## ✨ Features
+# ✨ Features
 
 - 🎨 Dynamic colors extracted from album artwork
-- 💧 Liquid Glass inspired UI with animated blur
+- 💧 Liquid Glass-inspired UI with animated blur effects
 - 🎵 Full Spotify playback controls
 - 🔁 Shuffle & repeat support
 - ⏱ Live playback progress tracking
-- 🔊 Volume adjustment
-- 🌈 Background blur synced to current track colors
+- 🔊 Volume control
+- 🌈 Background blur synced with current track colors
 - 🫧 Reactive animated blobs
 - 🖥 Spotify device switching support
-- ⚡ Auto wake / reconnect inactive Spotify devices
+- ⚡ Automatic wake/reconnect for inactive Spotify devices
 - 🪟 Frameless desktop window with custom controls
 
 ---
 
-## 🎬 Demo
+# 🎬 Demo
 
 <p align="center">
 <img src="Images/LG.gif" width="900"/>
@@ -56,7 +65,7 @@ Dynamic blur • Reactive colors • Device switching • Spotify controls • P
 
 ---
 
-## 📸 Screenshots
+# 📸 Screenshots
 
 ### Main Interface
 
@@ -77,19 +86,19 @@ git clone https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git
 cd LiquidGlass-for-PC
 ```
 
-Or download the ZIP directly.
+Or download the ZIP directly from GitHub.
 
 ---
 
 ## 📦 Install Dependencies
 
-Install all requirements:
+Install required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Or manually:
+Or install manually:
 
 ```bash
 pip install pywebview requests spotipy PyQt6 colorthief
@@ -97,7 +106,7 @@ pip install pywebview requests spotipy PyQt6 colorthief
 
 ---
 
-## 🔑 Spotify API Setup
+# 🔑 Spotify API Setup
 
 Create:
 
@@ -114,36 +123,39 @@ Add your Spotify credentials:
 }
 ```
 
-Get credentials from:
+Get your credentials from:
 
 https://developer.spotify.com/dashboard
 
-Set Redirect URI:
+Set the Redirect URI to:
 
 ```txt
 http://127.0.0.1:8888/callback
 ```
-and Set these API's:
 
-`•Web API`
+Enable:
+
+```txt
+• Web API
+```
 
 ---
 
-## ▶ Run the Application
+# ▶ Running the App
 
-Start:
+Start LiquidGlass:
 
 ```bash
 python Main.py
 ```
 
-The first launch opens Spotify authentication.
+On first launch, Spotify authentication will open automatically.
 
-After connecting, LiquidGlass automatically detects available devices and can transfer playback between them.
+After connecting, LiquidGlass detects available Spotify devices and allows playback transfer between them.
 
 ---
 
-## 🛠 Built With
+# 🛠 Built With
 
 - Python
 - PyWebView
@@ -154,17 +166,28 @@ After connecting, LiquidGlass automatically detects available devices and can tr
 
 ---
 
-## 🗺 Roadmap
+# 🗺 Roadmap
+
+Planned improvements:
 
 - [ ] Mini mode
 - [ ] Lyrics support
-- [ ] Better customization
-- [ ] Performance improvements
-- [ ] More visual effects
+- [ ] More customization options
+- [ ] Performance optimizations
+- [ ] Additional visual effects
+- [ ] Improved multi-device support
 
 ---
 
-## 📄 License
+# 🤝 Contributing
+
+Contributions, ideas, and bug reports are welcome.
+
+If you find issues or have suggestions, open an issue or submit a pull request.
+
+---
+
+# 📄 License
 
 Released under the **MIT License**.
 
@@ -172,7 +195,7 @@ Released under the **MIT License**.
 
 <div align="center">
 
-### Made with 💖 by **SoulNova**
+## Made with 💖 by **SoulNova**
 
 Inspired by Apple’s Liquid Glass aesthetic.
 
