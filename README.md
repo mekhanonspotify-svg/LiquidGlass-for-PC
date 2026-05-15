@@ -21,7 +21,7 @@ Animated blur • Dynamic colors • Spotify integration • PyWebView + Python
 
 ## 🎬 Demo
 
-<img src="Images/LG.gif" width="900" height="auto" alt="Description of animation"/>
+<img src="Images/LG.gif" width="900"/>
 
 ---
 
