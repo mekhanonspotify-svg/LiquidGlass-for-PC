@@ -21,7 +21,7 @@ Animated blur • Dynamic colors • Spotify integration • PyWebView + Python
 
 ## 🎬 Demo
 
-<video src="Images/LG.mp4" controls width="900"></video>
+https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC/assets/LG.mp4
 
 ---
 
