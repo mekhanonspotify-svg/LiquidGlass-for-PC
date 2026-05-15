@@ -150,4 +150,3 @@ MIT License
 Made with 💖 by **SoulNova**
 
 </div>
-```
