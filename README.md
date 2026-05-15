@@ -97,14 +97,20 @@ http://127.0.0.1:8888/callback
 
 ---
 
-## ▶ Run
+## ▶ Running the App
+
+Start using:
 
 ```bash
 python main.py
 ```
-*or Double click the .py File*
 
-Login to Spotify when prompted.
+or simply **double-click `main.py`** if Python is associated with `.py` files on your system.
+
+On first launch, a browser window will open for **Spotify authentication**.  
+Log in and grant access to connect your account.
+
+After authentication, the app will launch automatically.
 
 ---
 
