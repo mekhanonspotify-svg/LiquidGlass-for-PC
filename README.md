@@ -30,6 +30,8 @@ Dynamic blur • Reactive colors • Device switching • Spotify controls • P
 - 🛜 You need a stable good internet connection for it to work smoothly
 - 🌐 If youre connection is bad or your wifi is unstable it may lag behind and not work correctly!
 
+---
+
 ## ✨ Features
 
 - 🎨 Dynamic colors extracted from album artwork
