@@ -102,6 +102,7 @@ http://127.0.0.1:8888/callback
 ```bash
 python main.py
 ```
+*or Double click the .py File*
 
 Login to Spotify when prompted.
 
@@ -120,26 +121,8 @@ Login to Spotify when prompted.
 
 ## 📌 Roadmap
 
-- [ ] Better Liquid Glass reflections
 - [ ] Mini mode
 - [ ] Lyrics support
-- [ ] Equalizer animation
-- [ ] Themes
-- [ ] Acrylic transparency
-
----
-
-## Preview of architecture
-
-```txt
-Spotify API
-    ↓
-Python (Spotipy)
-    ↓
-PyWebView bridge
-    ↓
-HTML/CSS UI
-```
 
 ---
 
@@ -151,6 +134,6 @@ MIT License
 
 <div align="center">
 
-Made with 💓 by **SoulNova**
+Made with 💖 by **SoulNova**
 
 </div>
