@@ -108,9 +108,6 @@ Add:
   "spotify_secret": "YOUR_CLIENT_SECRET_HERE"
 }
 ```
-
-Add to `.gitignore`:
-
 ```gitignore
 API.JSON
 ```
@@ -124,7 +121,7 @@ Never upload API credentials.
 Install manually:
 
 ```bash
-pip install pywebview spotipy colorthief PyQt6 requests
+pip install pywebview spotipy requests colorthief PyQt6 plyer pylrc pygame numpy
 ```
 
 or run:
@@ -152,6 +149,10 @@ python main.py
 - ColorThief
 - PyQt6
 - Requests
+- plyer
+- pylrc
+- pygame
+- numpy
 
 ---
 
