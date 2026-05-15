@@ -4,7 +4,7 @@
     <style>
         body {
             margin: 0; padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             height: 100vh; display: flex;
             align-items: center; justify-content: center;
             background: #000; color: white;
@@ -14,26 +14,23 @@
         
         #player-card {
             width: 320px;
-            /* Liquid Glass Core Styles */
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%);
-            backdrop-filter: blur(50px) saturate(200%);
-            -webkit-backdrop-filter: blur(50px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-top: 1px solid rgba(255, 255, 255, 0.4); /* Highlight edge */
-            border-left: 1px solid rgba(255, 255, 255, 0.3); /* Highlight edge */
-            border-radius: 44px; /* Slightly softer iOS style curves */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.0) 100%);
+            backdrop-filter: blur(80px) saturate(250%);
+            -webkit-backdrop-filter: blur(80px) saturate(250%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 48px;
             padding: 30px;
-            box-shadow: 
-                0 30px 60px rgba(0,0,0,0.5), 
-                inset 0 0 20px rgba(255, 255, 255, 0.05); /* Internal glow */
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 3px rgba(255, 255, 255, 0.2);
             display: flex; flex-direction: column;
             transition: all 0.5s ease;
         }
 
         .art-wrapper {
             position: relative; width: 100%; aspect-ratio: 1;
-            border-radius: 24px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            border-radius: 28px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
             background: #111;
             overflow: hidden;
         }
@@ -44,55 +41,38 @@
             position: absolute; bottom: 12px; right: 12px;
             width: 24px; height: 24px;
             background-size: contain; background-repeat: no-repeat;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));
         }
 
-        .info-section { margin-top: 28px; display: flex; flex-direction: column; overflow: hidden; text-align: center; }
-        #title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        #artist { font-size: 1.05rem; font-weight: 500; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
+        .info-section { margin-top: 28px; display: flex; flex-direction: column; text-align: center; }
+        #title { font-size: 1.4rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #artist { font-size: 1.05rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-top: 4px; }
 
-        /* Modern iOS style range sliders */
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
-        input[type=range]:focus { outline: none; }
-        input[type=range]::-webkit-slider-runnable-track { 
-            width: 100%; height: 6px; 
-            background: rgba(255,255,255,0.15); 
-            border-radius: 4px; 
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
-        }
-        input[type=range]::-webkit-slider-thumb { 
-            -webkit-appearance: none; height: 16px; width: 16px; 
-            border-radius: 50%; background: #fff; 
-            margin-top: -5px; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-            transition: transform 0.1s;
-        }
-        input[type=range]::-webkit-slider-thumb:active { transform: scale(1.2); }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: #fff; margin-top: -4px; }
 
         .progress-container { margin-top: 24px; }
-        .times { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-top: 10px; }
+        .times { display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 8px; }
 
-        .controls { margin-top: 24px; display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
-        button { background: none; border: none; color: white; cursor: pointer; transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1); outline: none; }
-        button:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
-        button:active { transform: scale(0.95); }
-        .main-btn { font-size: 2.2rem; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .sec-btn { font-size: 1.3rem; opacity: 0.5; }
-        .sec-btn.active { opacity: 1; color: #1DB954; filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.4)); }
+        .controls { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+        button { background: none; border: none; color: white; cursor: pointer; transition: transform 0.2s; }
+        button:active { transform: scale(0.9); }
+        .sec-btn { opacity: 0.4; }
+        .sec-btn.active { opacity: 1; color: #1DB954; }
 
-        .volume-container { display: flex; align-items: center; gap: 12px; margin-top: 28px; opacity: 0.7; }
-        .volume-container span { font-size: 0.9rem; }
+        .volume-container { display: flex; align-items: center; gap: 10px; margin-top: 25px; opacity: 0.5; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
     <div id="player-card">
         <div class="art-wrapper">
             <img id="art" src="">
             <div id="app-logo"></div>
         </div>
         <div class="info-section">
-            <div id="title">Waiting for Spotify...</div>
-            <div id="artist">Open Spotify to begin</div>
+            <div id="title">Loading...</div>
+            <div id="artist">Connecting to Spotify</div>
         </div>
         <div class="progress-container">
             <input type="range" id="progress-bar" min="0" value="0" onchange="seekAudio(this.value)" oninput="isDragging = true">
@@ -102,16 +82,17 @@
             </div>
         </div>
         <div class="controls">
-            <button class="sec-btn" id="btn-shuffle" onclick="toggleShuffle()">🔀</button>
-            <button class="main-btn" onclick="skip(-1)">⏮</button>
-            <button class="main-btn" id="play-pause" style="font-size: 3.2rem;" onclick="toggle()">▶</button>
-            <button class="main-btn" onclick="skip(1)">⏭</button>
-            <button class="sec-btn" id="btn-repeat" onclick="toggleRepeat()">🔁</button>
+            <button class="sec-btn" id="btn-shuffle" onclick="toggleShuffle()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+            </button>
+            <button onclick="skip(-1)"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+            <button id="play-pause" onclick="toggle()"></button>
+            <button onclick="skip(1)"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+            <button class="sec-btn" id="btn-repeat" onclick="toggleRepeat()"></button>
         </div>
         <div class="volume-container">
-            <span>🔈</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>
             <input type="range" id="volume-bar" min="0" max="100" oninput="changeVolume(this.value)">
-            <span>🔊</span>
         </div>
     </div>
 
@@ -119,11 +100,30 @@
         const spotifyLogo = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
         let isDragging = false;
 
+        const iconPlay = `<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+        const iconPause = `<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+        const iconRepeat = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>`;
+
+        document.getElementById('play-pause').innerHTML = iconPlay;
+        document.getElementById('btn-repeat').innerHTML = iconRepeat;
+
         function formatTime(ms) {
             const totalSeconds = Math.floor(ms / 1000);
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds % 60;
-            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            return `${Math.floor(totalSeconds / 60)}:${(totalSeconds % 60).toString().padStart(2, '0')}`;
+        }
+
+        // --- FIXED: Color Steal Handler ---
+        function updateColors(c) {
+            document.body.style.background = `radial-gradient(120% 120% at 20% 100%, rgb(${c[0]},${c[1]},${c[2]}), #050505 90%)`;
+        }
+
+        // --- FIXED: Status Handler ---
+        function setSystemState(state) {
+            if (state === 'offline' || state === 'idle') {
+                document.getElementById('title').innerText = "Spotify Offline";
+                document.getElementById('artist').innerText = "Please open Spotify";
+                document.body.style.background = "#000";
+            }
         }
 
         function updateUI(data) {
@@ -132,48 +132,26 @@
                 document.getElementById('artist').innerText = data.artist;
                 document.getElementById('art').src = data.thumb;
                 document.getElementById('app-logo').style.backgroundImage = `url('${spotifyLogo}')`;
+                document.getElementById('play-pause').innerHTML = data.is_playing ? iconPause : iconPlay;
+                document.getElementById('btn-shuffle').classList.toggle('active', data.shuffle);
+                document.getElementById('btn-repeat').classList.toggle('active', data.repeat !== 'off');
 
-                if(data.color) {
-                    const c = data.color;
-                    // Changed to a massive radial gradient that pushes up from the bottom left
-                    // This creates a vibrant "liquid" environment behind the glass UI
-                    document.body.style.background = `radial-gradient(120% 120% at 20% 100%, rgb(${c[0]},${c[1]},${c[2]}), #050505 80%)`;
-                    
-                    // We REMOVED the color injection into the card itself. 
-                    // Liquid glass looks best when it just refracts the background.
+                if (!isDragging) {
+                    document.getElementById('progress-bar').max = data.length;
+                    document.getElementById('progress-bar').value = data.time;
+                    document.getElementById('time-current').innerText = formatTime(data.time);
+                    document.getElementById('time-total').innerText = formatTime(data.length);
                 }
+                document.getElementById('volume-bar').value = data.volume;
             }
         }
 
         function toggle() { pywebview.api.toggle_audio(); }
-        function skip(dir) { pywebview.api.skip(dir).then(updateUI); }
+        function skip(dir) { pywebview.api.skip(dir); }
         function seekAudio(val) { isDragging = false; pywebview.api.set_time(val); }
         function changeVolume(val) { pywebview.api.set_volume(val); }
         function toggleShuffle() { pywebview.api.toggle_shuffle(); }
         function toggleRepeat() { pywebview.api.toggle_repeat(); }
-
-        setInterval(() => {
-            pywebview.api.get_status().then(status => {
-                if (status.status === "success") {
-                    document.getElementById('play-pause').innerText = status.is_playing ? "⏸" : "▶";
-                    document.getElementById('btn-shuffle').classList.toggle('active', status.shuffle);
-                    
-                    const rBtn = document.getElementById('btn-repeat');
-                    rBtn.innerText = status.repeat === 'track' ? "🔂" : "🔁";
-                    rBtn.classList.toggle('active', status.repeat !== 'off');
-
-                    if (!isDragging) {
-                        document.getElementById('progress-bar').max = status.length;
-                        document.getElementById('progress-bar').value = status.time;
-                        document.getElementById('time-current').innerText = formatTime(status.time);
-                        document.getElementById('time-total').innerText = formatTime(status.length);
-                    }
-                    
-                    const vBar = document.getElementById('volume-bar');
-                    if (Math.abs(vBar.value - status.volume) > 2) vBar.value = status.volume;
-                }
-            });
-        }, 500);
     </script>
 </body>
 </html>
