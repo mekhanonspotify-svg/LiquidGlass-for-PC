@@ -38,8 +38,16 @@ class SpotifyRemote:
 
     def get_status(self):
         try:
-            # Set a low timeout for the request to avoid hanging the UI loop
+            # Check playback
             pb = self.sp.current_playback()
+            
+            # Persistent check: If pb is None, verify if any device is actually connected
+            if pb is None:
+                devices = self.sp.devices()
+                if not devices['devices']:
+                    return {"status": "offline"}
+                return {"status": "no_track"}
+
             if pb and pb['item']:
                 return {
                     "status": "success",
@@ -54,20 +62,18 @@ class SpotifyRemote:
                     "volume": pb['device']['volume_percent']
                 }
             return {"status": "no_track"}
-        except Exception:
+        except:
             return {"status": "offline"}
 
     def get_color_async(self, url, window):
-        """Extracts colors in a separate thread so the UI doesn't lag."""
         def _task():
             try:
-                res = requests.get(url, timeout=3)
+                res = requests.get(url, timeout=5)
                 color = list(ColorThief(BytesIO(res.content)).get_color(quality=5))
                 window.evaluate_js(f"updateColors({color})")
             except: pass
         threading.Thread(target=_task, daemon=True).start()
 
-    # API Bridge methods
     def toggle_audio(self):
         try:
             pb = self.sp.current_playback()
@@ -105,21 +111,25 @@ class SpotifyRemote:
 def run_logic(window, api):
     hide_console()
     last_track = ""
+    offline_check = 0
     
     while True:
         status = api.get_status()
         
         if status["status"] == "success":
+            offline_check = 0
             current_track = f"{status['title']}-{status['artist']}"
             if current_track != last_track:
                 api.get_color_async(status['thumb'], window)
                 last_track = current_track
             window.evaluate_js(f"updateUI({json.dumps(status)})")
+        
         elif status["status"] == "offline":
-            window.evaluate_js("setSystemState('offline')")
-        else:
-            window.evaluate_js("setSystemState('idle')")
-            
+            # Buffer the offline state to prevent flickering during pauses
+            offline_check += 1
+            if offline_check >= 3:
+                window.evaluate_js("setSystemState('offline')")
+        
         time.sleep(1)
 
 if __name__ == '__main__':
@@ -131,7 +141,7 @@ if __name__ == '__main__':
         'index.html', 
         js_api=backend, 
         width=380, 
-        height=720, 
-        frameless=False # Set to True for a cleaner look if you handle dragging
+        height=740,
+        background_color='#000000'
     )
     webview.start(run_logic, (window, backend), gui='qt')
