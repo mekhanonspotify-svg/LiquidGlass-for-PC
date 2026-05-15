@@ -120,7 +120,7 @@ def run_logic(window, api):
         else:
             window.evaluate_js("setSystemState('idle')")
             
-        time.sleep(1) # Frequency of updates
+        time.sleep(1)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
