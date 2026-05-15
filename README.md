@@ -2,9 +2,9 @@
 
 # 💧 LiquidGlass for PC
 
-Glassmorphism Spotify remote inspired by Apple’s Liquid Glass design language.
+A **glassmorphism Spotify remote** inspired by Apple’s **Liquid Glass** design language.
 
-Animated blur • Dynamic colors • Spotify integration • PyWebView + Python
+Dynamic blur • Reactive colors • Spotify controls • Python + PyWebView
 
 <img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
 
@@ -19,28 +19,30 @@ Animated blur • Dynamic colors • Spotify integration • PyWebView + Python
 
 ---
 
-## 🎬 Demo
-
-<img src="Images/LG.gif" width="900"/>
-
----
-
 ## ✨ Features
 
-- Dynamic colors extracted from album art
-- Liquid glass inspired UI
-- Spotify playback controls
-- Shuffle / Repeat support
-- Live playback progress
-- Volume control
-- Background blur synced with current track
-- Animated reactive blobs
+- 🎨 Dynamic colors extracted from album artwork
+- 💧 Liquid glass inspired UI with animated blur
+- 🎵 Spotify playback controls
+- 🔁 Shuffle & repeat support
+- ⏱ Live playback progress tracking
+- 🔊 Volume control
+- 🌈 Background blur synced to current track colors
+- 🫧 Reactive animated blobs
 
 ---
 
-## 📸 Preview
+## 🎬 Demo
 
-### Main UI
+<p align="center">
+<img src="Images/LG.gif" width="900"/>
+</p>
+
+---
+
+## 📸 Screenshots
+
+### Main Interface
 
 <img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
 
@@ -50,46 +52,44 @@ Animated blur • Dynamic colors • Spotify integration • PyWebView + Python
 
 ---
 
-## 🚀 Installation
+# 🚀 Getting Started
 
 Clone the repository:
 
 ```bash
 git clone https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git
 cd LiquidGlass-for-PC
-````
+```
 
-Or download ZIP.
+Or download the ZIP directly.
 
 ---
 
-## 📦 Install dependencies
+## 📦 Install Dependencies
+
+Install all requirements:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Or manually:
+Or install manually:
 
 ```bash
-pip install pywebview
-pip install requests
-pip install spotipy
-pip install PyQt6
-pip install colorthief
+pip install pywebview requests spotipy PyQt6 colorthief
 ```
 
 ---
 
 ## 🔑 Spotify API Setup
 
-Create a file:
+Create a file named:
 
 ```txt
 API.JSON
 ```
 
-Example:
+Add your Spotify credentials:
 
 ```json
 {
@@ -98,10 +98,11 @@ Example:
 }
 ```
 
-Get credentials:
-[https://developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
+Get credentials from:
 
-Redirect URI:
+https://developer.spotify.com/dashboard
+
+Set your **Redirect URI** to:
 
 ```txt
 http://127.0.0.1:8888/callback
@@ -109,44 +110,48 @@ http://127.0.0.1:8888/callback
 
 ---
 
-## ▶ Running the App
+## ▶ Run the Application
+
+Start the app:
 
 ```bash
 python main.py
 ```
 
-Or double-click `main.py`.
-
-First launch will open browser login for Spotify authentication.
+The first launch opens a browser window for Spotify authentication.
 
 ---
 
 ## 🛠 Built With
 
-* Python
-* PyWebView
-* PyQt6
-* Spotipy
-* HTML / CSS / JavaScript
-* ColorThief
+- Python
+- PyWebView
+- PyQt6
+- Spotipy
+- HTML / CSS / JavaScript
+- ColorThief
 
 ---
 
-## 📌 Roadmap
+## 🗺 Roadmap
 
-* [ ] Mini mode
-* [ ] Lyrics support
+- [ ] Mini mode
+- [ ] Lyrics support
+- [ ] Better customization options
+- [ ] Performance improvements
 
 ---
 
 ## 📄 License
 
-MIT License
+Released under the **MIT License**.
 
 ---
 
 <div align="center">
 
-Made with 💖 by **SoulNova**
+### Made with 💖 by **SoulNova**
+
+Inspired by Apple’s Liquid Glass aesthetic.
 
 </div>
