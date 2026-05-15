@@ -8,91 +8,176 @@
             height: 100vh; display: flex;
             align-items: center; justify-content: center;
             background: #000; color: white;
-            transition: background 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
             overflow: hidden; user-select: none;
         }
-        
+
+        #bg-blur {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            filter: blur(60px) brightness(0.25);
+            transform: scale(1.1);
+            z-index: -1;
+            transition: opacity 1.2s ease-in-out;
+        }
+
         #player-card {
-            width: 320px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.0) 100%);
-            backdrop-filter: blur(80px) saturate(250%);
-            -webkit-backdrop-filter: blur(80px) saturate(250%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            width: 330px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 48px;
             padding: 30px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 3px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.7);
             display: flex; flex-direction: column;
-            transition: all 0.5s ease;
+            overflow: hidden; 
+            transition: border-color 0.8s ease;
         }
+
+        /* --- HIGH SPEED ROAMING BLOBS --- */
+        .blob-container {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 65%; /* Higher reach */
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(50px);
+            opacity: 0.7;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            transition: background 1.5s ease;
+        }
+
+        /* Faster, wider movement paths */
+        .blob-1 { 
+            width: 180px; height: 180px; top: 10%; left: -20%; 
+            animation: roam-1 5s infinite alternate ease-in-out; 
+        }
+        .blob-2 { 
+            width: 140px; height: 140px; bottom: 0; right: -10%; 
+            animation: roam-2 4s infinite alternate ease-in-out; 
+        }
+        .blob-3 { 
+            width: 120px; height: 120px; bottom: 10%; left: 20%; 
+            animation: roam-3 6s infinite alternate ease-in-out; 
+        }
+
+        @keyframes roam-1 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(120px, 40px) scale(1.3); }
+            100% { transform: translate(60px, -80px) scale(0.9); }
+        }
+
+        @keyframes roam-2 {
+            0% { transform: translate(0, 0) scale(1.1); }
+            50% { transform: translate(-100px, -60px) scale(0.8); }
+            100% { transform: translate(-40px, 20px) scale(1.2); }
+        }
+
+        @keyframes roam-3 {
+            0% { transform: translate(0, 0) scale(0.9); }
+            50% { transform: translate(50px, -100px) scale(1.2); }
+            100% { transform: translate(-80px, -40px) scale(1); }
+        }
+
+        /* --- Content --- */
+        .content-wrap { position: relative; z-index: 2; }
 
         .art-wrapper {
             position: relative; width: 100%; aspect-ratio: 1;
-            border-radius: 28px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+            border-radius: 32px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
             background: #111;
             overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        #art { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+        #art { width: 100%; height: 100%; object-fit: cover; }
         
         #app-logo {
             position: absolute; bottom: 12px; right: 12px;
-            width: 24px; height: 24px;
+            width: 26px; height: 26px;
             background-size: contain; background-repeat: no-repeat;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));
         }
 
-        .info-section { margin-top: 28px; display: flex; flex-direction: column; text-align: center; }
-        #title { font-size: 1.4rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #artist { font-size: 1.05rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-top: 4px; }
+        .info-section { margin-top: 30px; display: flex; flex-direction: column; text-align: center; }
+        #title { font-size: 1.45rem; font-weight: 700; margin-bottom: 4px; }
+        #artist { font-size: 1.05rem; opacity: 0.6; }
 
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: #fff; margin-top: -4px; }
+        .progress-container { margin-top: 25px; }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+        input[type=range]::-webkit-slider-runnable-track { height: 4px; background: rgba(255,255,255,0.15); border-radius: 10px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; border-radius: 50%; background: #fff; margin-top: -5px; }
 
-        .progress-container { margin-top: 24px; }
-        .times { display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 8px; }
+        .times { display: flex; justify-content: space-between; font-size: 0.75rem; opacity: 0.5; margin-top: 10px; }
 
-        .controls { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
-        button { background: none; border: none; color: white; cursor: pointer; transition: transform 0.2s; }
-        button:active { transform: scale(0.9); }
+        /* Controls */
+        .controls { margin-top: 28px; display: flex; justify-content: space-between; align-items: center; }
+        button { background: none; border: none; color: white; cursor: pointer; transition: all 0.2s; opacity: 0.85; }
+        button:hover { transform: scale(1.15); opacity: 1; }
+        
+        #play-pause { 
+            background: rgba(255,255,255,0.1); 
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%; 
+            width: 64px; height: 64px;
+            display: flex; align-items: center; justify-content: center; 
+        }
+
         .sec-btn { opacity: 0.4; }
         .sec-btn.active { opacity: 1; color: #1DB954; }
 
-        .volume-container { display: flex; align-items: center; gap: 10px; margin-top: 25px; opacity: 0.5; }
+        .volume-container { display: flex; align-items: center; gap: 12px; margin-top: 30px; opacity: 0.4; transition: opacity 0.3s; }
+        .volume-container:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
+    <img id="bg-blur" src="">
+    
     <div id="player-card">
-        <div class="art-wrapper">
-            <img id="art" src="">
-            <div id="app-logo"></div>
+        <div class="blob-container">
+            <div class="blob blob-1" id="b1"></div>
+            <div class="blob blob-2" id="b2"></div>
+            <div class="blob blob-3" id="b3"></div>
         </div>
-        <div class="info-section">
-            <div id="title">Loading...</div>
-            <div id="artist">Connecting to Spotify</div>
-        </div>
-        <div class="progress-container">
-            <input type="range" id="progress-bar" min="0" value="0" onchange="seekAudio(this.value)" oninput="isDragging = true">
-            <div class="times">
-                <span id="time-current">0:00</span>
-                <span id="time-total">0:00</span>
+
+        <div class="content-wrap">
+            <div class="art-wrapper">
+                <img id="art" src="">
+                <div id="app-logo"></div>
             </div>
-        </div>
-        <div class="controls">
-            <button class="sec-btn" id="btn-shuffle" onclick="toggleShuffle()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
-            </button>
-            <button onclick="skip(-1)"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
-            <button id="play-pause" onclick="toggle()"></button>
-            <button onclick="skip(1)"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
-            <button class="sec-btn" id="btn-repeat" onclick="toggleRepeat()"></button>
-        </div>
-        <div class="volume-container">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>
-            <input type="range" id="volume-bar" min="0" max="100" oninput="changeVolume(this.value)">
+            
+            <div class="info-section">
+                <div id="title">Waiting...</div>
+                <div id="artist">Connect Spotify</div>
+            </div>
+
+            <div class="progress-container">
+                <input type="range" id="progress-bar" min="0" value="0" onchange="seekAudio(this.value)" oninput="isDragging = true">
+                <div class="times">
+                    <span id="time-current">0:00</span>
+                    <span id="time-total">0:00</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="sec-btn" id="btn-shuffle" onclick="toggleShuffle()">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+                </button>
+                <button onclick="skip(-1)"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+                <button id="play-pause" onclick="toggle()"></button>
+                <button onclick="skip(1)"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+                <button class="sec-btn" id="btn-repeat" onclick="toggleRepeat()"></button>
+            </div>
+
+            <div class="volume-container">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>
+                <input type="range" id="volume-bar" min="0" max="100" oninput="changeVolume(this.value)">
+            </div>
         </div>
     </div>
 
@@ -100,9 +185,9 @@
         const spotifyLogo = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
         let isDragging = false;
 
-        const iconPlay = `<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
-        const iconPause = `<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-        const iconRepeat = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>`;
+        const iconPlay = `<svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+        const iconPause = `<svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+        const iconRepeat = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>`;
 
         document.getElementById('play-pause').innerHTML = iconPlay;
         document.getElementById('btn-repeat').innerHTML = iconRepeat;
@@ -112,17 +197,19 @@
             return `${Math.floor(totalSeconds / 60)}:${(totalSeconds % 60).toString().padStart(2, '0')}`;
         }
 
-        // --- FIXED: Color Steal Handler ---
         function updateColors(c) {
-            document.body.style.background = `radial-gradient(120% 120% at 20% 100%, rgb(${c[0]},${c[1]},${c[2]}), #050505 90%)`;
+            const rgb = `rgb(${c[0]},${c[1]},${c[2]})`;
+            document.getElementById('b1').style.background = rgb;
+            document.getElementById('b2').style.background = `rgba(${c[0]},${c[1]},${c[2]}, 0.8)`;
+            document.getElementById('b3').style.background = `rgba(${c[0]},${c[1]},${c[2]}, 0.6)`;
+            document.getElementById('player-card').style.borderColor = `rgba(${c[0]},${c[1]},${c[2]}, 0.35)`;
         }
 
-        // --- FIXED: Status Handler ---
         function setSystemState(state) {
-            if (state === 'offline' || state === 'idle') {
+            if (state === 'offline') {
                 document.getElementById('title').innerText = "Spotify Offline";
-                document.getElementById('artist').innerText = "Please open Spotify";
-                document.body.style.background = "#000";
+                document.getElementById('artist').innerText = "App is disconnected";
+                document.getElementById('bg-blur').style.opacity = "0.1";
             }
         }
 
@@ -130,7 +217,12 @@
             if (data.status === "success") {
                 document.getElementById('title').innerText = data.title;
                 document.getElementById('artist').innerText = data.artist;
-                document.getElementById('art').src = data.thumb;
+                
+                if (document.getElementById('art').src !== data.thumb) {
+                    document.getElementById('art').src = data.thumb;
+                    document.getElementById('bg-blur').src = data.thumb;
+                }
+
                 document.getElementById('app-logo').style.backgroundImage = `url('${spotifyLogo}')`;
                 document.getElementById('play-pause').innerHTML = data.is_playing ? iconPause : iconPlay;
                 document.getElementById('btn-shuffle').classList.toggle('active', data.shuffle);
