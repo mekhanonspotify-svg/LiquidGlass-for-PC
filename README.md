@@ -151,6 +151,6 @@ MIT License
 
 <div align="center">
 
-Made because Spotify desktop deserved more glass.
+Made with 💓 by **SoulNova**
 
 </div>
