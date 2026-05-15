@@ -4,10 +4,10 @@ echo ==================================================
 echo   Installing Liquid Glass Project Dependencies
 echo ==================================================
 echo.
-echo Installing: pywebview, spotipy, colorthief, PyQt6, requests...
+echo Installing: pywebview spotipy requests colorthief PyQt6 plyer pylrc pygame numpy...
 echo.
 
-pip install pywebview spotipy colorthief PyQt6 requests
+pip install pywebview spotipy requests colorthief PyQt6 plyer pylrc pygame numpy
 
 echo.
 echo ==================================================
