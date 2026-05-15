@@ -110,6 +110,8 @@ Set Redirect URI:
 ```txt
 http://127.0.0.1:8888/callback
 ```
+and Set these API's:
+``- Web API``
 
 ---
 
