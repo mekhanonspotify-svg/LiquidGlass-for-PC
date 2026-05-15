@@ -1,7 +1,7 @@
 @echo off
 title Spotify Remote Dependency Installer
 echo ==================================================
-echo   Installing Liquid Glass Project Dependencies
+echo   Installing Liquid Glass Project Dependencies.
 echo ==================================================
 echo.
 echo Installing: pywebview, spotipy, colorthief, PyQt6, requests...
