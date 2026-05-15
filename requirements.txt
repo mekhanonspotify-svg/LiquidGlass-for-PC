@@ -1,0 +1,5 @@
+pip install pywebview
+pip install requests
+pip install spotipy
+pip install PyQt6
+pip install colorthief
