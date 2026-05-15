@@ -2,9 +2,9 @@
 
 # 💧 LiquidGlass for PC
 
-A **glassmorphism Spotify remote** inspired by Apple’s **Liquid Glass** design language.
+A **glassmorphism Spotify desktop remote** inspired by Apple’s **Liquid Glass** design language.
 
-Dynamic blur • Reactive colors • Spotify controls • Python + PyWebView
+Dynamic blur • Reactive colors • Device switching • Spotify controls • Python + PyWebView
 
 <img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
 
@@ -22,13 +22,16 @@ Dynamic blur • Reactive colors • Spotify controls • Python + PyWebView
 ## ✨ Features
 
 - 🎨 Dynamic colors extracted from album artwork
-- 💧 Liquid glass inspired UI with animated blur
-- 🎵 Spotify playback controls
+- 💧 Liquid Glass inspired UI with animated blur
+- 🎵 Full Spotify playback controls
 - 🔁 Shuffle & repeat support
 - ⏱ Live playback progress tracking
-- 🔊 Volume control
+- 🔊 Volume adjustment
 - 🌈 Background blur synced to current track colors
 - 🫧 Reactive animated blobs
+- 🖥 Spotify device switching support
+- ⚡ Auto wake / reconnect inactive Spotify devices
+- 🪟 Frameless desktop window with custom controls
 
 ---
 
@@ -46,7 +49,7 @@ Dynamic blur • Reactive colors • Spotify controls • Python + PyWebView
 
 <img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
 
-### Alternate View
+### Device Switching
 
 <img src="Images/Screenshot 2026-05-15 175020.png" width="900"/>
 
@@ -73,7 +76,7 @@ Install all requirements:
 pip install -r requirements.txt
 ```
 
-Or install manually:
+Or manually:
 
 ```bash
 pip install pywebview requests spotipy PyQt6 colorthief
@@ -83,7 +86,7 @@ pip install pywebview requests spotipy PyQt6 colorthief
 
 ## 🔑 Spotify API Setup
 
-Create a file named:
+Create:
 
 ```txt
 API.JSON
@@ -102,7 +105,7 @@ Get credentials from:
 
 https://developer.spotify.com/dashboard
 
-Set your **Redirect URI** to:
+Set Redirect URI:
 
 ```txt
 http://127.0.0.1:8888/callback
@@ -112,13 +115,15 @@ http://127.0.0.1:8888/callback
 
 ## ▶ Run the Application
 
-Start the app:
+Start:
 
 ```bash
-python main.py
+python Main.py
 ```
 
-The first launch opens a browser window for Spotify authentication.
+The first launch opens Spotify authentication.
+
+After connecting, LiquidGlass automatically detects available devices and can transfer playback between them.
 
 ---
 
@@ -137,8 +142,9 @@ The first launch opens a browser window for Spotify authentication.
 
 - [ ] Mini mode
 - [ ] Lyrics support
-- [ ] Better customization options
+- [ ] Better customization
 - [ ] Performance improvements
+- [ ] More visual effects
 
 ---
 
