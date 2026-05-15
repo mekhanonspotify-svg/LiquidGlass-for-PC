@@ -19,6 +19,17 @@ Dynamic blur • Reactive colors • Device switching • Spotify controls • P
 
 ---
 
+## 📄 Notes
+- 👾 There maybe currently lag and the app suddenly stopping, restart the app if it happens!
+- 👷 Im currently working on it working across devices connected to you're account
+
+---
+
+## ⚠️ Important
+
+- 🛜 You need a stable good internet connection for it to work smoothly
+- 🌐 If youre connection is bad or your wifi is unstable it may lag behind and not work correctly!
+
 ## ✨ Features
 
 - 🎨 Dynamic colors extracted from album artwork
