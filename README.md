@@ -181,12 +181,8 @@ LiquidGlass/
 │
 ├── main.py
 ├── API.JSON
-├── install_dependencies.bat
-│
-└── Frontend
-    ├── index.html
-    ├── styles.css
-    └── script.js
+└── install_dependencies.bat
+
 ```
 
 ---
