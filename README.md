@@ -1,71 +1,53 @@
+---
+
 # 🎵 Liquid Glass Spotify Remote
-
-<p align="center">
-  <img src="Images/Screenshot%202026-05-15%20144619.png"
-       width="900"
-       alt="Liquid Glass Spotify Remote"
-       style="border-radius:20px;">
-</p>
-
-<p align="center">
-  <b>A modern glassmorphic Spotify controller with dynamic album-color backgrounds.</b><br>
-  Smooth playback controls • Real-time sync • Immersive Liquid Glass visuals
-</p>
-
-<p align="center">
-
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Spotify API](https://img.shields.io/badge/API-Spotify-1DB954)
-![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
-![Status](https://img.shields.io/badge/Status-Active-success)
-
-</p>
 
 ---
 
 # ✨ Features
 
 ### 🌈 Dynamic Ambient Backgrounds
-Album artwork colors are extracted using **ColorThief**, generating immersive glowing backgrounds that adapt in real time.
 
-### 🪟 Modern Glassmorphism UI
-Built with:
+Album artwork colors are extracted using **ColorThief**, generating immersive glowing backgrounds and "liquid blobs" that adapt in real time.
 
-- HTML
-- CSS
-- JavaScript
-- PyWebView
+### 🖼️ Mini Player Mode
 
-Inspired by modern translucent desktop interfaces.
+Switch to a compact, "Always-on-Top" tile mode for a non-intrusive desktop experience. Ideal for keeping your controls visible while working.
 
-### 🎛 Playback Controls
+### 🎤 Lyrics Support
+
+Slide up the lyrics panel to follow along with your favorite tracks. Features a dedicated translucent interface for focused reading.
+
+### 📊 Visualizer Effects
+
+Dynamic CSS-based audio bars that react when music is playing, adding a rhythmic pulse to the glass interface.
+
+### 🎭 Additional Themes
+
+Choose your vibe with multiple built-in themes:
+
+* **Glass:** The classic translucent look.
+* **Midnight:** Deep blues and low-light accents.
+* **Retro:** High-contrast orange and monospace aesthetic.
+
+### 🔔 Desktop Notifications
+
+Get system-level toast notifications every time the track changes, so you never have to alt-tab to see what's playing.
+
+---
+
+# 🎛 Playback Controls
 
 | Feature | Support |
-|----------|----------|
+| --- | --- |
 | Play / Pause | ✅ |
-| Skip Tracks | ✅ |
+| Skip / Previous | ✅ |
 | Volume Control | ✅ |
-| Shuffle | ✅ |
-| Repeat | ✅ |
-| Progress Tracking | ✅ |
-
----
-
-### ⚡ Real-Time Synchronization
-
-Automatically updates:
-
-- Current track
-- Album artwork
-- Playback progress
-- Device state
-- Playback status
-
----
-
-# ❤️ Why This Exists
-
-Built to make controlling Spotify feel more immersive and visually connected to the music you're listening to.
+| Shuffle / Repeat | ✅ |
+| Progress Seeking | ✅ |
+| Mini Player Mode | ✅ |
+| Lyrics Display | ✅ |
+| Desktop Toasts | ✅ |
 
 ---
 
@@ -73,102 +55,33 @@ Built to make controlling Spotify feel more immersive and visually connected to 
 
 ## 1. Create Spotify API Credentials
 
-Visit:
-
-https://developer.spotify.com/dashboard
-
-Create an app and set:
-
-```txt
-http://127.0.0.1:8888/callback
-```
-
-as your Redirect URI.
-
-Copy:
-
-- Client ID
-- Client Secret
-
----
+Visit the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard).
+Create an app and set the **Redirect URI** to:
+`[http://127.0.0.1:8888/callback](http://127.0.0.1:8888/callback)`
 
 ## 2. Configure Credentials
 
-Create:
-
-```txt
-API.JSON
-```
-
-Add:
+Create a file named `API.JSON` in the root directory:
 
 ```json
 {
   "spotify_id": "YOUR_CLIENT_ID_HERE",
   "spotify_secret": "YOUR_CLIENT_SECRET_HERE"
 }
-```
-```gitignore
-API.JSON
+
 ```
 
-Never upload API credentials.
-
----
+> [!IMPORTANT]
+> Never upload your `API.JSON` to public repositories. It is already added to `.gitignore`.
 
 ## 3. Install Dependencies
 
-Install manually:
+Run the following command to install the required libraries:
 
 ```bash
 pip install pywebview spotipy requests colorthief PyQt6 plyer pylrc pygame numpy
+
 ```
-
-or run:
-
-```txt
-install_dependencies.bat
-```
-
----
-
-## 4. Run
-
-Launch:
-
-```bash
-python main.py
-```
-
----
-
-# 📦 Dependencies
-
-- PyWebView
-- Spotipy
-- ColorThief
-- PyQt6
-- Requests
-- plyer
-- pylrc
-- pygame
-- numpy
-
----
-
-# ⚠️ Notes
-
-### Internet Required
-Spotify Web API access requires an active connection.
-
-### Performance
-On slower systems:
-
-- Album loading may delay
-- Dynamic backgrounds may update slower
-
-### Spotify Premium
-Some playback controls may require Premium.
 
 ---
 
@@ -177,12 +90,13 @@ Some playback controls may require Premium.
 ```txt
 LiquidGlass/
 │
-├── Images/
-│   └── Screenshot.png
-│
-├── main.py
-├── API.JSON
-└── install_dependencies.bat
+├── .spotify_cache        # Generated after first login
+├── API.JSON              # Your credentials
+├── main.py               # Python Logic (Spotify API + WebView)
+├── index.html            # UI/UX (CSS Glassmorphism + JS)
+├── install_dependencies.bat
+└── Images/
+    └── Screenshot.png
 
 ```
 
@@ -190,34 +104,21 @@ LiquidGlass/
 
 # 🛠 Built With
 
-- Python
-- HTML
-- CSS
-- JavaScript
-- Spotify Web API
-- PyWebView
+* **Backend:** Python, Spotipy
+* **Frontend:** HTML5, CSS3 (Glassmorphism), JavaScript
+* **Engine:** PyWebView (Qt6)
+* **Notifications:** Plyer
 
 ---
 
 # 🗺 Roadmap
 
-- [ ] Lyrics support
-- [ ] Mini player mode
-- [ ] Additional themes
-- [ ] Desktop notifications
-- [ ] Visualizer effects
-- [ ] Packaged executable releases
+* [x] Lyrics support
+* [x] Mini player mode
+* [x] Additional themes
+* [x] Desktop notifications
+* [x] Visualizer effects
+* [ ] Packaged executable (.exe) releases
+* [ ] Local audio file support
 
 ---
-
-# 📸 Preview
-
-Dynamic backgrounds adapt to your music, creating an immersive **Liquid Glass** desktop experience.
-
-*(GIF demo coming soon)*
-
----
-
-<p align="center">
-Made with ❤️ by <b>SoulNova</b>
-</p>
