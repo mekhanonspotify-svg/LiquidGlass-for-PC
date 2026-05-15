@@ -49,6 +49,8 @@ git clone https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git
 
 cd LiquidGlass-for-PC
 ```
+``or simply download the .zip``
+
 
 Install dependencies:
 
