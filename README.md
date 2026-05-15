@@ -1,3 +1,4 @@
+````md
 <div align="center">
 
 # 💧 LiquidGlass for PC
@@ -19,6 +20,12 @@ Animated blur • Dynamic colors • Spotify integration • PyWebView + Python
 
 ---
 
+## 🎬 Demo
+
+<video src="Images/LG.mp4" controls width="900"></video>
+
+---
+
 ## ✨ Features
 
 - Dynamic colors extracted from album art
@@ -36,23 +43,34 @@ Animated blur • Dynamic colors • Spotify integration • PyWebView + Python
 
 ### Main UI
 
-<img src="Images/Screenshot 2026-05-15 144619.png"/>
+<img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
+
+### Alternate View
+
+<img src="Images/Screenshot 2026-05-15 175020.png" width="900"/>
 
 ---
 
 ## 🚀 Installation
 
-Clone:
+Clone the repository:
 
 ```bash
 git clone https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git
-
 cd LiquidGlass-for-PC
+````
+
+Or download ZIP.
+
+---
+
+## 📦 Install dependencies
+
+```bash
+pip install -r requirements.txt
 ```
-``or simply download the .zip``
 
-
-Install dependencies:
+Or manually:
 
 ```bash
 pip install pywebview
@@ -62,17 +80,11 @@ pip install PyQt6
 pip install colorthief
 ```
 
-or:
-
-```bash
-pip install -r requirements.txt
-```
-
 ---
 
 ## 🔑 Spotify API Setup
 
-Create:
+Create a file:
 
 ```txt
 API.JSON
@@ -82,14 +94,13 @@ Example:
 
 ```json
 {
-"spotify_id":"YOUR_CLIENT_ID",
-"spotify_secret":"YOUR_CLIENT_SECRET"
+  "spotify_id": "YOUR_CLIENT_ID",
+  "spotify_secret": "YOUR_CLIENT_SECRET"
 }
 ```
 
-Get credentials from:
-
-https://developer.spotify.com/dashboard
+Get credentials:
+[https://developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
 
 Redirect URI:
 
@@ -101,40 +112,35 @@ http://127.0.0.1:8888/callback
 
 ## ▶ Running the App
 
-Start using:
-
 ```bash
 python main.py
 ```
 
-or simply **double-click `main.py`** if Python is associated with `.py` files on your system.
+Or double-click `main.py`.
 
-On first launch, a browser window will open for **Spotify authentication**.  
-Log in and grant access to connect your account.
-
-After authentication, the app will launch automatically.
+First launch will open browser login for Spotify authentication.
 
 ---
 
 ## 🛠 Built With
 
-- Python
-- PyWebView
-- PyQt6
-- Spotipy
-- HTML/CSS/JS
-- ColorThief
+* Python
+* PyWebView
+* PyQt6
+* Spotipy
+* HTML / CSS / JavaScript
+* ColorThief
 
 ---
 
 ## 📌 Roadmap
 
-- [ ] Mini mode
-- [ ] Lyrics support
+* [ ] Mini mode
+* [ ] Lyrics support
 
 ---
 
-## License
+## 📄 License
 
 MIT License
 
@@ -145,3 +151,4 @@ MIT License
 Made with 💖 by **SoulNova**
 
 </div>
+```
