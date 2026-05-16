@@ -21,9 +21,9 @@ os.environ["QT_ENABLE_HIGHDPI_SCALING"] = "1"
 # ==========================================
 # CONFIGURATION & VERSIONING
 # ==========================================
-CURRENT_VERSION = "1.5.5"
-GITHUB_RAW_VERSION_URL = "https://raw.githubusercontent.com/mekhanonspotify-svg/LiquidGlass-for-PC/main/latest.version"
-GITHUB_REPO_URL = "https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC/tree/main"
+CURRENT_VERSION = "1.5.6-Beta1"
+GITHUB_RAW_VERSION_URL = "https://raw.githubusercontent.com/mekhanonspotify-svg/LiquidGlass-for-PC/main/Beta/latest.version"
+GITHUB_REPO_URL = "https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC/tree/main/Beta"
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
