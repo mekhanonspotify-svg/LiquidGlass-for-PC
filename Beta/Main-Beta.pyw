@@ -256,7 +256,7 @@ if __name__ == '__main__':
     
     window = webview.create_window(
         'Liquid Glass Remote', 
-        resource_path('index.html'), 
+        resource_path('index-Beta.html'), 
         js_api=backend, 
         width=400, # Increased slightly to prevent tight edges
         height=800,
