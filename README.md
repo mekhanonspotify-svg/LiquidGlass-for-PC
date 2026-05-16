@@ -155,6 +155,25 @@ After connecting, LiquidGlass detects available Spotify devices and allows playb
 
 ---
 
+## ☑️ After Installing
+☑️ make sure it works keep these files:
+`- Main.py`
+`- index.html`
+`- API.JSON`
+
+✖️ Delete These:
+`- Images`
+`- LICENSE`
+`- README.md`
+`- latest.version`
+`- requiremets.txt`
+
+``## 📄 Note``
+- ⚠️ if you have a file not on this list keep it. Spotifys API created it
+
+
+---
+
 # 🐞 Known Issues
 
 Current issues being worked on:
