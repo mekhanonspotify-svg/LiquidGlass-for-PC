@@ -78,6 +78,7 @@ Creating a desktop experience that changes with your music.
 - 🖥 Spotify device switching support
 - ⚡ Auto wake/reconnect inactive Spotify devices
 - 🪟 Frameless desktop window with custom controls
+- 📃 Has a Lyrics feature. Spotify has no Lyrics api so im using a diffrent one meaning it can find Lyrics to songs spotify has no lyrics
 
 ---
 
@@ -95,9 +96,11 @@ Creating a desktop experience that changes with your music.
 
 <img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
 
-### Device Switching
-
 <img src="Images/Screenshot 2026-05-15 175020.png" width="900"/>
+
+### Lyrics
+
+<img src="Images/image.png" width="900"/>
 
 ---
 
