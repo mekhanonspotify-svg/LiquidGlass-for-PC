@@ -168,7 +168,7 @@ After connecting, LiquidGlass detects available Spotify devices and allows playb
 `- latest.version`
 `- requiremets.txt`
 
-``## 📄 Note``
+## 📄 Note
 - ⚠️ if you have a file not on this list keep it. Spotifys API created it
 
 
