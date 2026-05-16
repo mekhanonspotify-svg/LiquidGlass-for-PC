@@ -141,41 +141,6 @@ pip install pywebview requests spotipy PyQt6 colorthief
 
 ---
 
-# 🔑 Spotify API Setup
-
-Create:
-
-```txt
-API.JSON
-```
-
-Add your Spotify credentials:
-
-```json
-{
-  "spotify_id": "YOUR_CLIENT_ID",
-  "spotify_secret": "YOUR_CLIENT_SECRET"
-}
-```
-
-Get credentials from:
-
-https://developer.spotify.com/dashboard
-
-Set Redirect URI:
-
-```txt
-http://127.0.0.1:8888/callback
-```
-
-Enable:
-
-```txt
-• Web API
-```
-
----
-
 # ▶ Run the Application
 
 Start LiquidGlass:
