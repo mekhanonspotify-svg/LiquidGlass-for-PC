@@ -7,16 +7,60 @@ import time
 import requests
 import spotipy
 import threading
-from spotipy.oauth2 import SpotifyOAuth
+import webbrowser
+from spotipy.oauth2 import SpotifyPKCE
 from colorthief import ColorThief
 from io import BytesIO
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 
+# ==========================================
+# CONFIGURATION & VERSIONING
+# ==========================================
+CURRENT_VERSION = "1.5.5"
+GITHUB_RAW_VERSION_URL = "https://raw.githubusercontent.com/mekhanonspotify-svg/LiquidGlass-for-PC/main/latest.version"
+GITHUB_REPO_URL = "https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC/tree/main"
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 def hide_console():
+    """Hides the cmd/terminal window on Windows."""
     hWnd = ctypes.WinDLL('kernel32').GetConsoleWindow()
     if hWnd: ctypes.WinDLL('user32').ShowWindow(hWnd, 0)
 
+def check_for_updates():
+    """Fetches the latest version from GitHub and alerts the user if an update is available."""
+    try:
+        response = requests.get(GITHUB_RAW_VERSION_URL, timeout=5)
+        if response.status_code == 200:
+            latest_version = response.text.strip()
+            
+            # Semantic version comparison
+            current_tuple = tuple(map(int, CURRENT_VERSION.split('.')))
+            latest_tuple = tuple(map(int, latest_version.split('.')))
+            
+            if latest_tuple > current_tuple:
+                title = "Update Available"
+                message = f"There is a new version available!\n\nPlease update to v{latest_version}.\n\nClick OK to visit the GitHub repository."
+                
+                # 0x1 = OK/Cancel, 0x40 = Info Icon, 0x40000 = Topmost
+                result = ctypes.windll.user32.MessageBoxW(0, message, title, 0x1 | 0x40 | 0x40000)
+                
+                if result == 1: # User clicked OK
+                    webbrowser.open(GITHUB_REPO_URL)
+    except Exception as e:
+        print(f"Update check failed: {e}")
+
+# ==========================================
+# SPOTIFY BACKEND LOGIC
+# ==========================================
 class SpotifyRemote:
     def __init__(self):
         self.window = None
@@ -24,9 +68,10 @@ class SpotifyRemote:
         try:
             with open('API.JSON', 'r') as f:
                 creds = json.load(f)
-                auth_manager = SpotifyOAuth(
+                
+                # Using PKCE for security (No Client Secret required)
+                auth_manager = SpotifyPKCE(
                     client_id=creds['spotify_id'],
-                    client_secret=creds['spotify_secret'],
                     redirect_uri="http://127.0.0.1:8888/callback",
                     scope=scope,
                     cache_path=".spotify_cache",
@@ -50,23 +95,17 @@ class SpotifyRemote:
         if self.window: self.window.destroy()
 
     def ensure_active(self):
-        """Attempts to wake up and connect to any device found on the account."""
         try:
             pb = self.sp.current_playback()
             if pb is None:
                 devices_data = self.sp.devices()
                 devices = devices_data.get('devices', []) if devices_data else []
-                
                 if devices:
-                    # Try targeting the first available device found
-                    device_id = devices[0]['id']
-                    self.sp.transfer_playback(device_id=device_id, force_play=False)
+                    self.sp.transfer_playback(device_id=devices[0]['id'], force_play=False)
         except: pass
 
     def set_device(self, device_id):
-        """Transfers playback to the selected device."""
-        try:
-            self.sp.transfer_playback(device_id=device_id, force_play=False)
+        try: self.sp.transfer_playback(device_id=device_id, force_play=False)
         except: pass
 
     def get_status(self):
@@ -75,7 +114,6 @@ class SpotifyRemote:
             devices_data = self.sp.devices()
             dev_list = devices_data.get('devices', []) if devices_data else []
             
-            # Format device list for frontend
             clean_devices = [{"id": d['id'], "name": d['name'], "is_active": d['is_active']} for d in dev_list]
             active_device = next((d['name'] for d in dev_list if d['is_active']), "No Device")
             
@@ -118,12 +156,9 @@ class SpotifyRemote:
     def toggle_audio(self):
         try:
             pb = self.sp.current_playback()
-            if pb and pb.get('is_playing'): 
-                self.sp.pause_playback()
-            elif pb: 
-                self.sp.start_playback()
+            if pb and pb.get('is_playing'): self.sp.pause_playback()
+            elif pb: self.sp.start_playback()
             else:
-                # If everything is idle, try to wake up background devices
                 self.ensure_active()
                 time.sleep(0.5)
                 self.sp.start_playback()
@@ -156,10 +191,16 @@ class SpotifyRemote:
             self.sp.repeat(modes[pb['repeat_state']])
         except: pass
 
+# ==========================================
+# UI THREADING & STARTUP
+# ==========================================
 def run_logic(window, api):
     hide_console()
     api.set_window(window)
     api.ensure_active()
+    
+    # Run update check in the background
+    threading.Thread(target=check_for_updates, daemon=True).start()
     
     last_track = ""
     offline_check = 0
@@ -186,13 +227,15 @@ def run_logic(window, api):
         time.sleep(1)
 
 if __name__ == '__main__':
+    # Initialize App
     app = QApplication(sys.argv)
     QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
     backend = SpotifyRemote()
     
+    # Create Window using resource_path for the HTML
     window = webview.create_window(
         'Liquid Glass Remote', 
-        'index.html', 
+        resource_path('index.html'), 
         js_api=backend, 
         width=380, 
         height=780,
@@ -200,4 +243,6 @@ if __name__ == '__main__':
         frameless=True,
         easy_drag=False
     )
+    
+    # Start the engine
     webview.start(run_logic, (window, backend), gui='qt')
