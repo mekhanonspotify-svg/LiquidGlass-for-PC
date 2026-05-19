@@ -176,11 +176,13 @@ Released under the **MIT License**.
 
 ---
 
-### Made with 💖 by **SoulNova**
+<div align="center">
 
-Inspired by Apple’s Liquid Glass aesthetic. 
+### Made with 💖 by **SoulNova**
 
 
 
 
 ⭐ *If you like the project, consider starring the repository!*
+
+<br>
