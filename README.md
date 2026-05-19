@@ -1,6 +1,3 @@
-Here is the polished and improved version of your Markdown. I cleaned up some of the typos (like "requiremets.txt" and "diffrent"), consolidated the warnings so the README flows much better, polished the description of your Lyrics feature to sound more professional, and updated the **Roadmap** to reflect the items you currently have in progress!
-
-```markdown
 <div align="center">
 
 # 💧 LiquidGlass for PC
