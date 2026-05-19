@@ -17,46 +17,53 @@ from PyQt6.QtCore import Qt
 # ==========================================
 # CONFIGURATION & VERSIONING
 # ==========================================
-CURRENT_VERSION = "1.5.5"
+CURRENT_VERSION = "1.5.6"
 GITHUB_RAW_VERSION_URL = "https://raw.githubusercontent.com/mekhanonspotify-svg/LiquidGlass-for-PC/main/latest.version"
 GITHUB_REPO_URL = "https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC/tree/main"
 
 def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
 def hide_console():
-    """Hides the cmd/terminal window on Windows."""
-    hWnd = ctypes.WinDLL('kernel32').GetConsoleWindow()
-    if hWnd: ctypes.WinDLL('user32').ShowWindow(hWnd, 0)
+    if os.name == 'nt':
+        hWnd = ctypes.WinDLL('kernel32').GetConsoleWindow()
+        if hWnd: ctypes.WinDLL('user32').ShowWindow(hWnd, 0)
 
 def check_for_updates():
-    """Fetches the latest version from GitHub and alerts the user if an update is available."""
     try:
         response = requests.get(GITHUB_RAW_VERSION_URL, timeout=5)
         if response.status_code == 200:
             latest_version = response.text.strip()
             
-            # Semantic version comparison
+            # Convert version strings to tuples for easy comparison (e.g., "1.5.5" -> (1, 5, 5))
             current_tuple = tuple(map(int, CURRENT_VERSION.split('.')))
             latest_tuple = tuple(map(int, latest_version.split('.')))
             
-            if latest_tuple > current_tuple:
+            # 1. Beta Version Check: Current is higher than latest
+            if current_tuple > latest_tuple:
+                title = "Beta Version"
+                message = f"You are currently running a beta version (v{CURRENT_VERSION}). Please expect potential bugs."
+                # 0x0 = MB_OK, 0x30 = MB_ICONWARNING, 0x40000 = MB_SYSTEMMODAL
+                ctypes.windll.user32.MessageBoxW(0, message, title, 0x0 | 0x30 | 0x40000)
+
+            # 2. Update Check: Latest is higher than current
+            elif latest_tuple > current_tuple:
                 title = "Update Available"
-                message = f"There is a new version available!\n\nPlease update to v{latest_version}.\n\nClick OK to visit the GitHub repository."
-                
-                # 0x1 = OK/Cancel, 0x40 = Info Icon, 0x40000 = Topmost
+                message = f"A new version is available!\n\nUpdate to v{latest_version}.\n\nClick OK to visit GitHub."
+                # 0x1 = MB_OKCANCEL, 0x40 = MB_ICONINFORMATION, 0x40000 = MB_SYSTEMMODAL
                 result = ctypes.windll.user32.MessageBoxW(0, message, title, 0x1 | 0x40 | 0x40000)
                 
-                if result == 1: # User clicked OK
+                # result 1 is IDOK, 2 is IDCANCEL (do nothing if canceled)
+                if result == 1: 
                     webbrowser.open(GITHUB_REPO_URL)
+                    
     except Exception as e:
         print(f"Update check failed: {e}")
+
 
 # ==========================================
 # SPOTIFY BACKEND LOGIC
@@ -64,12 +71,12 @@ def check_for_updates():
 class SpotifyRemote:
     def __init__(self):
         self.window = None
+        self.color_cache = {}
+        self.lyrics_cache = {}
         scope = "user-read-playback-state user-modify-playback-state user-read-currently-playing"
         try:
             with open('API.JSON', 'r') as f:
                 creds = json.load(f)
-                
-                # Using PKCE for security (No Client Secret required)
                 auth_manager = SpotifyPKCE(
                     client_id=creds['spotify_id'],
                     redirect_uri="http://127.0.0.1:8888/callback",
@@ -77,7 +84,7 @@ class SpotifyRemote:
                     cache_path=".spotify_cache",
                     open_browser=True
                 )
-                self.sp = spotipy.Spotify(auth_manager=auth_manager)
+                self.sp = spotipy.Spotify(auth_manager=auth_manager, retries=3, status_retries=3)
         except Exception as e:
             print(f"Auth Error: {e}")
             sys.exit(1)
@@ -98,11 +105,11 @@ class SpotifyRemote:
         try:
             pb = self.sp.current_playback()
             if pb is None:
-                devices_data = self.sp.devices()
-                devices = devices_data.get('devices', []) if devices_data else []
+                devices = self.sp.devices().get('devices', [])
                 if devices:
                     self.sp.transfer_playback(device_id=devices[0]['id'], force_play=False)
-        except: pass
+        except Exception as e: 
+            print(f"Ensure active failed: {e}")
 
     def set_device(self, device_id):
         try: self.sp.transfer_playback(device_id=device_id, force_play=False)
@@ -111,23 +118,21 @@ class SpotifyRemote:
     def get_status(self):
         try:
             pb = self.sp.current_playback()
-            devices_data = self.sp.devices()
-            dev_list = devices_data.get('devices', []) if devices_data else []
+            dev_list = self.sp.devices().get('devices', [])
             
             clean_devices = [{"id": d['id'], "name": d['name'], "is_active": d['is_active']} for d in dev_list]
             active_device = next((d['name'] for d in dev_list if d['is_active']), "No Device")
-            
-            if not active_device and dev_list:
-                active_device = dev_list[0]['name']
+            if not active_device and dev_list: active_device = dev_list[0]['name']
 
             if pb is None:
                 if not dev_list:
                     return {"status": "offline", "devices": [], "active_device": "None"}
                 return {"status": "no_track", "devices": clean_devices, "active_device": active_device}
 
-            if pb and pb['item']:
+            if pb and pb.get('item'):
                 return {
                     "status": "success",
+                    "track_id": pb['item']['id'],
                     "title": pb['item']['name'],
                     "artist": pb['item']['artists'][0]['name'],
                     "thumb": pb['item']['album']['images'][0]['url'],
@@ -136,21 +141,49 @@ class SpotifyRemote:
                     "is_playing": pb['is_playing'],
                     "shuffle": pb['shuffle_state'],
                     "repeat": pb['repeat_state'],
-                    "volume": pb['device']['volume_percent'],
+                    "volume": pb['device']['volume_percent'] if pb.get('device') else 50,
                     "devices": clean_devices,
                     "active_device": active_device
                 }
             return {"status": "no_track", "devices": clean_devices, "active_device": active_device}
-        except:
+        except Exception as e:
             return {"status": "offline", "devices": [], "active_device": "None"}
 
     def get_color_async(self, url, window):
+        if url in self.color_cache:
+            window.evaluate_js(f"updateColors({self.color_cache[url]})")
+            return
+
         def _task():
             try:
                 res = requests.get(url, timeout=5)
                 color = list(ColorThief(BytesIO(res.content)).get_color(quality=5))
-                window.evaluate_js(f"updateColors({color})")
+                self.color_cache[url] = color
+                if window: window.evaluate_js(f"updateColors({color})")
             except: pass
+        threading.Thread(target=_task, daemon=True).start()
+
+    def get_lyrics_async(self, track_name, artist_name, track_id, window):
+        if track_id in self.lyrics_cache:
+            if window: window.evaluate_js(f"updateLyrics({json.dumps(self.lyrics_cache[track_id])})")
+            return
+
+        def _task():
+            try:
+                url = "https://lrclib.net/api/get"
+                params = {"track_name": track_name, "artist_name": artist_name}
+                res = requests.get(url, params=params, timeout=5)
+                
+                if res.status_code == 200:
+                    data = res.json()
+                    lyrics = data.get("syncedLyrics") or data.get("plainLyrics") or "No lyrics found."
+                else:
+                    lyrics = "No lyrics found for this track."
+                
+                self.lyrics_cache[track_id] = lyrics
+                if window: window.evaluate_js(f"updateLyrics({json.dumps(lyrics)})")
+            except Exception as e:
+                if window: window.evaluate_js(f"updateLyrics('Error connecting to lyrics server.')")
         threading.Thread(target=_task, daemon=True).start()
 
     def toggle_audio(self):
@@ -199,40 +232,44 @@ def run_logic(window, api):
     api.set_window(window)
     api.ensure_active()
     
-    # Run update check in the background
     threading.Thread(target=check_for_updates, daemon=True).start()
     
-    last_track = ""
+    last_track_id = None
     offline_check = 0
     
     while True:
-        status = api.get_status()
+        try:
+            status = api.get_status()
+            
+            if status["status"] == "success":
+                offline_check = 0
+                current_id = status.get('track_id')
+                
+                if current_id != last_track_id:
+                    api.get_color_async(status['thumb'], window)
+                    api.get_lyrics_async(status['title'], status['artist'], current_id, window)
+                    last_track_id = current_id
+                    
+                if window: window.evaluate_js(f"updateUI({json.dumps(status)})")
+            
+            elif status["status"] == "offline":
+                offline_check += 1
+                if offline_check >= 3 and window:
+                    window.evaluate_js("setSystemState('offline')")
+            
+            elif status["status"] == "no_track" and window:
+                window.evaluate_js(f"updateUI({json.dumps(status)})")
         
-        if status["status"] == "success":
-            offline_check = 0
-            current_track = f"{status['title']}-{status['artist']}"
-            if current_track != last_track:
-                api.get_color_async(status['thumb'], window)
-                last_track = current_track
-            window.evaluate_js(f"updateUI({json.dumps(status)})")
-        
-        elif status["status"] == "offline":
-            offline_check += 1
-            if offline_check >= 3:
-                window.evaluate_js("setSystemState('offline')")
-        
-        elif status["status"] == "no_track":
-            window.evaluate_js(f"updateUI({json.dumps(status)})")
+        except Exception as e:
+            print(f"Loop error: {e}")
             
         time.sleep(1)
 
 if __name__ == '__main__':
-    # Initialize App
     app = QApplication(sys.argv)
     QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
     backend = SpotifyRemote()
     
-    # Create Window using resource_path for the HTML
     window = webview.create_window(
         'Liquid Glass Remote', 
         resource_path('index.html'), 
@@ -244,5 +281,4 @@ if __name__ == '__main__':
         easy_drag=False
     )
     
-    # Start the engine
     webview.start(run_logic, (window, backend), gui='qt')
