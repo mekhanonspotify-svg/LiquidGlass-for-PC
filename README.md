@@ -164,6 +164,13 @@ Cross-device support and stability improvements are actively being worked on. Cu
 
 ---
 
+## ⬆️ Comming Features
+
+**Begging to update**
+<img width="1090" height="229" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/2e78d457-d0ef-4692-bd35-f1608aba7e83" />
+
+---
+
 ## 🤝 Contributing
 
 Contributions, ideas, and bug reports are welcome! Open an issue or submit a pull request if you'd like to help improve LiquidGlass.
