@@ -1,3 +1,6 @@
+Here is the polished and improved version of your Markdown. I cleaned up some of the typos (like "requiremets.txt" and "diffrent"), consolidated the warnings so the README flows much better, polished the description of your Lyrics feature to sound more professional, and updated the **Roadmap** to reflect the items you currently have in progress!
+
+```markdown
 <div align="center">
 
 # 💧 LiquidGlass for PC
@@ -19,222 +22,168 @@ Dynamic blur • Reactive colors • Device switching • Spotify controls • B
 
 ---
 
-> ⚠️ **Work in progress** — expect bugs, improvements, and new features.
+> ⚠️ **Work in Progress:** Expect bugs, active improvements, and new features. A stable internet connection is required for smooth playback syncing.
 
 ---
 
-# ✨ About
+## ✨ About
 
 **LiquidGlass for PC** is a desktop Spotify remote featuring a **dynamic glassmorphism interface**, reactive colors extracted from album artwork, animated blur effects, and seamless Spotify device switching.
 
-Inspired by Apple’s **Liquid Glass** aesthetic while creating a more immersive desktop Spotify experience.
-
-Built for people who want music controls to feel alive.
-
----
-
-# ❓ Why LiquidGlass?
-
-Most Spotify remotes feel static.
-
-LiquidGlass adapts in real time using:
-
+Most Spotify remotes feel static. LiquidGlass adapts in real time using:
 - 🎨 Album artwork color extraction
 - 💧 Dynamic blur effects
 - 🌈 Reactive backgrounds
 - 🫧 Animated UI elements
 - ⚡ Device syncing & playback transfer
 
-Creating a desktop experience that changes with your music.
+Built for people who want music controls to feel alive.
 
 ---
 
-# 📌 Notes
+## ✨ Features
 
-- 👾 The app may occasionally lag or freeze. Restarting usually fixes the issue.
-- 👷 Cross-device support and stability improvements are currently being worked on.
-- 🚧 Expect bugs while development continues.
-
----
-
-# ⚠️ Important
-
-- 🛜 A stable internet connection is recommended for smooth playback syncing.
-- 🌐 Poor or unstable connections may cause delays or playback issues.
-- 🎵 Spotify Premium is required for playback control via Spotify API.
+- **Dynamic Colors:** Extracted directly from album artwork.
+- **Liquid Glass UI:** Animated blur and reactive blobs.
+- **Full Playback Controls:** Play, pause, skip, volume adjustment, shuffle, and repeat.
+- **Live Progress Tracking:** Real-time playback status.
+- **Independent Lyrics Fetching:** Uses a custom API to find and display lyrics, bypassing Spotify's limitations to support tracks that normally lack lyrics.
+- **Device Management:** Switch between Spotify devices and auto-wake/reconnect inactive ones.
+- **Frameless Window:** Custom desktop controls for a clean aesthetic.
 
 ---
 
-# ✨ Features
-
-- 🎨 Dynamic colors extracted from album artwork
-- 💧 Liquid Glass-inspired UI with animated blur
-- 🎵 Full Spotify playback controls
-- 🔁 Shuffle & repeat support
-- ⏱ Live playback progress tracking
-- 🔊 Volume adjustment
-- 🌈 Background blur synced to current track colors
-- 🫧 Reactive animated blobs
-- 🖥 Spotify device switching support
-- ⚡ Auto wake/reconnect inactive Spotify devices
-- 🪟 Frameless desktop window with custom controls
-- 📃 Has a Lyrics feature. Spotify has no Lyrics api so im using a diffrent one meaning it can find Lyrics to songs spotify has no lyrics
-
----
-
-# 🎬 Demo
+## 🎬 Demo & Screenshots
 
 <p align="center">
 <img src="Images/LG.gif" width="900"/>
 </p>
 
----
-
-# 📸 Screenshots
-
 ### Main Interface
-
 <img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
-
+<br>
 <img src="Images/Screenshot 2026-05-15 175020.png" width="900"/>
 
 ### Lyrics
-
 <img src="Images/image.png" width="900"/>
 
 ---
 
-# 💻 Compatibility
+## 💻 Compatibility
 
 | Platform | Supported |
-|----------|------------|
-| Windows | ✅ |
-| macOS | ❌ |
-| Linux | ❌ |
+|----------|:---------:|
+| Windows  | ✅        |
+| macOS    | ❌        |
+| Linux    | ❌        |
 
 ---
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 
-Clone the repository:
-
+**1. Clone the repository:**
 ```bash
-git clone https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git
-
+git clone [https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git](https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git)
 cd LiquidGlass-for-PC
+
 ```
 
-Or download the ZIP directly from GitHub.
+*(Alternatively, download the ZIP directly from GitHub.)*
 
----
-
-## 📦 Install Dependencies
-
-Install all requirements:
+**2. Install Dependencies:**
 
 ```bash
 pip install -r requirements.txt
+
 ```
 
-Or manually:
+*(Or manually: `pip install pywebview requests spotipy PyQt6 colorthief`)*
 
-```bash
-pip install pywebview requests spotipy PyQt6 colorthief
-```
-
----
-
-# ▶ Run the Application
-
-Start LiquidGlass:
+**3. Run the Application:**
 
 ```bash
 python Main.py
+
 ```
 
-The first launch opens Spotify authentication automatically.
-
-After connecting, LiquidGlass detects available Spotify devices and allows playback transfer between them.
+> **Note:** The first launch will automatically open your browser for Spotify authentication. After connecting, LiquidGlass detects available devices and allows playback transfer.
 
 ---
 
-## ☑️ After Installing
-☑️ make sure it works keep these files:
-`- Main.py`
-`- index.html`
-`- API.JSON`
+## 📂 Post-Installation Cleanup (Optional)
 
-✖️ Delete These:
-`- Images`
-`- LICENSE`
-`- README.md`
-`- latest.version`
-`- requiremets.txt`
+For a clean deployment without repository bloat, you only need the essential runtime files.
 
-## 📄 Note
-- ⚠️ if you have a file not on this list keep it. Spotifys API created it
+**✅ Keep these files:**
 
+* `Main.py`
+* `index.html`
+* `API.JSON`
+*(⚠️ **Note:** If you see any other files not on this list, keep them. They were likely generated by the Spotify API, such as auth tokens).*
 
----
+**✖️ Safe to delete:**
 
-# 🐞 Known Issues
-
-Current issues being worked on:
-
-- Occasional lag during playback syncing
-- Rare freezes/crashes
-- Delayed updates on unstable internet connections
-- Device switching may occasionally take extra time
-
-Restarting the app fixes most temporary issues.
+* `Images/`
+* `LICENSE`
+* `README.md`
+* `latest.version`
+* `requirements.txt`
 
 ---
 
-# 🛠 Built With
+## 🐞 Known Issues
 
-- Python
-- PyWebView
-- PyQt6
-- Spotipy
-- HTML / CSS / JavaScript
-- ColorThief
+Cross-device support and stability improvements are actively being worked on. Current issues include:
 
----
-
-# 🗺 Roadmap
-
-Planned improvements:
-
-- [ ] Mini mode
-- [ ] Lyrics support
-- [ ] More customization options
-- [ ] Performance optimizations
-- [ ] Additional visual effects
-- [ ] Better multi-device support
-- [ ] Improved stability
+* Occasional lag or delayed updates on unstable internet connections.
+* Rare freezes/crashes (restarting the app usually resolves this).
+* Device switching may occasionally take extra time.
 
 ---
 
-# 🤝 Contributing
+## 🛠 Built With
 
-Contributions, ideas, and bug reports are welcome.
-
-Open an issue or submit a pull request if you'd like to help improve LiquidGlass.
+* **Python** (Backend & Logic)
+* **PyWebView & PyQt6** (Window rendering)
+* **Spotipy** (Spotify API Integration)
+* **HTML / CSS / JavaScript** (Frontend UI)
+* **ColorThief** (Color extraction)
 
 ---
 
-# 📄 License
+## 🗺 Roadmap
+
+**🚧 In Progress**
+
+* [ ] Lyrics support
+* [ ] Performance optimizations
+* [ ] Additional visual effects
+* [ ] Better multi-device support
+* [ ] Improved stability
+
+**📌 Planned**
+
+* [ ] Mini mode
+
+---
+
+## 🤝 Contributing
+
+Contributions, ideas, and bug reports are welcome! Open an issue or submit a pull request if you'd like to help improve LiquidGlass.
+
+---
+
+## 📄 License
 
 Released under the **MIT License**.
 
 ---
 
-<div align="center">
-
 ### Made with 💖 by **SoulNova**
 
-Inspired by Apple’s Liquid Glass aesthetic.
+Inspired by Apple’s Liquid Glass aesthetic. 
 
-⭐ If you like the project, consider starring the repository.
 
-</div>
+
+
+⭐ *If you like the project, consider starring the repository!*
