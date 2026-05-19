@@ -11,26 +11,29 @@
             overflow: hidden; user-select: none;
         }
 
-        /* --- Custom Title Bar (Frameless Drag Region) --- */
+        /* --- Title Bar --- */
+        /* Changed to position: fixed so it NEVER scrolls out of view */
         .title-bar {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 40px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 40px;
             display: flex; justify-content: space-between; align-items: center;
-            z-index: 100;
-            padding: 0 15px; box-sizing: border-box;
+            z-index: 1000; padding: 0 15px; box-sizing: border-box;
         }
         .drag-region {
-            flex-grow: 1; height: 100%;
-            -webkit-app-region: drag; /* Used by PyWebView for frameless dragging */
+            flex-grow: 1; height: 100%; -webkit-app-region: drag;
             display: flex; align-items: center;
             font-size: 0.75rem; opacity: 0.5; font-weight: 600; letter-spacing: 1px;
         }
-        .window-controls { display: flex; gap: 15px; -webkit-app-region: no-drag; }
+        .window-controls { display: flex; gap: 15px; align-items: center; -webkit-app-region: no-drag; }
         .window-controls button {
             background: none; border: none; color: white; opacity: 0.5;
             cursor: pointer; font-size: 1.1rem; padding: 0; transition: opacity 0.2s;
         }
         .window-controls button:hover { opacity: 1; transform: scale(1.1); }
+
+        /* Blur Slider Styles */
+        .blur-control { display: flex; align-items: center; gap: 8px; margin-right: 10px; }
+        .blur-icon { opacity: 0.6; font-size: 10px; font-weight: bold; letter-spacing: 1px; }
+        .blur-control input[type=range] { width: 65px; }
 
         #bg-blur {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -63,21 +66,27 @@
 
         .content-wrap { position: relative; z-index: 2; }
 
+        /* Art & Visualizer */
         .art-wrapper {
             position: relative; width: 100%; aspect-ratio: 1; border-radius: 32px; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #111;
-            overflow: hidden; transition: transform 0.4s;
+            overflow: hidden; transition: transform 0.4s, box-shadow 0.4s;
             display: flex; align-items: center; justify-content: center;
         }
+        @keyframes art-pulse {
+            0% { box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+            50% { box-shadow: 0 20px 70px rgba(255,255,255,0.15); }
+            100% { box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        }
+        .art-wrapper.playing { animation: art-pulse 3s infinite ease-in-out; }
         
         #art { width: 100%; height: 100%; object-fit: cover; display: none; }
         #app-logo { position: absolute; bottom: 12px; right: 12px; width: 26px; height: 26px; background-size: contain; background-repeat: no-repeat; }
 
         .info-section { margin-top: 30px; display: flex; flex-direction: column; text-align: center; }
-        #title { font-size: 1.45rem; font-weight: 700; margin-bottom: 4px; }
-        #artist { font-size: 1.05rem; opacity: 0.6; }
+        #title { font-size: 1.45rem; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #artist { font-size: 1.05rem; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* Refresh Button */
         #refresh-btn {
             display: none; margin-top: 15px; padding: 10px 20px;
             background: #1DB954; color: black; font-weight: bold; border-radius: 20px;
@@ -85,6 +94,7 @@
         }
         #refresh-btn:hover { background: #1ed760; transform: scale(1.05); }
 
+        /* Progress Bar */
         .progress-container { margin-top: 25px; }
         input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
         input[type=range]::-webkit-slider-runnable-track { height: 4px; background: rgba(255,255,255,0.15); border-radius: 10px; }
@@ -92,6 +102,7 @@
 
         .times { display: flex; justify-content: space-between; font-size: 0.75rem; opacity: 0.5; margin-top: 10px; }
 
+        /* Controls */
         .controls { margin-top: 28px; display: flex; justify-content: space-between; align-items: center; }
         button { background: none; border: none; color: white; cursor: pointer; transition: all 0.2s; opacity: 0.85; }
         button:hover { transform: scale(1.15); opacity: 1; }
@@ -105,14 +116,17 @@
         .sec-btn { opacity: 0.4; }
         .sec-btn.active { opacity: 1; color: #1DB954; }
 
-        .volume-container { display: flex; align-items: center; gap: 12px; margin-top: 25px; opacity: 0.4; transition: opacity 0.3s; }
+        /* Volume & Actions */
+        .bottom-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
+        .volume-container { display: flex; align-items: center; gap: 12px; opacity: 0.4; transition: opacity 0.3s; flex-grow: 1; margin-right: 15px; }
         .volume-container:hover { opacity: 0.9; }
+        
+        #btn-lyrics { opacity: 0.5; transition: 0.3s; }
+        #btn-lyrics.active { opacity: 1; color: #1DB954; }
 
-        /* --- Device Selector --- */
+        /* Device Selector */
         .device-selector-wrap { position: relative; margin-top: 20px; }
-        .device-toggle { 
-            display: flex; align-items: center; gap: 8px; font-size: 0.8rem; opacity: 0.6; cursor: pointer; transition: 0.2s; 
-        }
+        .device-toggle { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; opacity: 0.6; cursor: pointer; transition: 0.2s; }
         .device-toggle:hover { opacity: 1; color: #1DB954; }
         .device-list {
             display: none; position: absolute; bottom: 100%; left: 0; width: 100%;
@@ -121,23 +135,50 @@
             border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px;
             max-height: 150px; overflow-y: auto; z-index: 10;
         }
-        .device-item {
-            padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; transition: 0.2s;
-        }
+        .device-item { padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
         .device-item:hover { background: rgba(255,255,255,0.1); }
         .device-item.active { color: #1DB954; font-weight: bold; }
-        
-        /* Custom scrollbar for device list */
         .device-list::-webkit-scrollbar { width: 5px; }
         .device-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        /* Lyrics Overlay */
+        #lyrics-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 48px; z-index: 5; display: flex; flex-direction: column;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            overflow: hidden; padding: 30px 20px; box-sizing: border-box;
+        }
+        #lyrics-overlay.show { opacity: 1; pointer-events: auto; }
+        
+        .lyrics-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .lyrics-title { font-weight: bold; font-size: 1.1rem; color: #1DB954; }
+        .close-lyrics { background: none; border: none; color: white; opacity: 0.7; cursor: pointer; }
+        
+        #lyrics-content {
+            flex-grow: 1; overflow-y: auto; text-align: center;
+            font-size: 1.1rem; line-height: 1.8; padding: 20px 0 60px 0;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 80%, transparent);
+            scrollbar-width: none;
+        }
+        #lyrics-content::-webkit-scrollbar { display: none; }
+        
+        .lyric-line { transition: color 0.3s, transform 0.3s; opacity: 0.4; margin-bottom: 10px; cursor: pointer; }
+        .lyric-line.active { opacity: 1; color: #fff; font-weight: 700; transform: scale(1.05); }
     </style>
 </head>
 <body>
     <div class="title-bar">
         <div class="drag-region pywebview-drag-region">LIQUID GLASS</div>
         <div class="window-controls">
+            <div class="blur-control" title="Adjust Background Blur">
+                <span class="blur-icon">BLUR</span>
+                <input type="range" id="blur-slider" min="0" max="100" value="60" oninput="updateBlur(this.value)">
+            </div>
+            
             <button onclick="pywebview.api.minimize_window()">—</button>
-            <button onclick="pywebview.api.toggle_maximize()">□</button>
+            <button onclick="toggleFullscreenJS()">□</button>
             <button onclick="pywebview.api.close_window()">✕</button>
         </div>
     </div>
@@ -152,7 +193,7 @@
         </div>
 
         <div class="content-wrap">
-            <div class="art-wrapper">
+            <div class="art-wrapper" id="art-wrapper">
                 <img id="art" src="">
                 <div id="app-logo"></div>
             </div>
@@ -164,7 +205,7 @@
             </div>
 
             <div class="progress-container">
-                <input type="range" id="progress-bar" min="0" value="0" onchange="seekAudio(this.value)" oninput="isDragging = true">
+                <input type="range" id="progress-bar" min="0" value="0" onchange="seekAudio(this.value)" oninput="userDragging()">
                 <div class="times">
                     <span id="time-current">0:00</span>
                     <span id="time-total">0:00</span>
@@ -181,9 +222,14 @@
                 <button class="sec-btn" id="btn-repeat" onclick="toggleRepeat()"></button>
             </div>
 
-            <div class="volume-container">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>
-                <input type="range" id="volume-bar" min="0" max="100" oninput="changeVolume(this.value)">
+            <div class="bottom-actions">
+                <div class="volume-container">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>
+                    <input type="range" id="volume-bar" min="0" max="100" oninput="changeVolume(this.value)">
+                </div>
+                <button id="btn-lyrics" onclick="toggleLyricsPanel()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+                </button>
             </div>
 
             <div class="device-selector-wrap">
@@ -194,12 +240,28 @@
                 </div>
             </div>
         </div>
+
+        <div id="lyrics-overlay">
+            <div class="lyrics-header">
+                <span class="lyrics-title">Lyrics</span>
+                <button class="close-lyrics" onclick="toggleLyricsPanel()">✕</button>
+            </div>
+            <div id="lyrics-content">Loading...</div>
+        </div>
     </div>
 
     <script>
         const spotifyLogo = "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg";
+        
         let isDragging = false;
         let deviceListOpen = false;
+        let isLyricsOpen = false;
+        let isFullscreen = false; // Tracks fullscreen state locally
+        
+        let localProgressMs = 0;
+        let trackDurationMs = 0;
+        let isPlayingLocal = false;
+        let parsedLyrics = [];
 
         const iconPlay = `<svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
         const iconPause = `<svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
@@ -208,6 +270,39 @@
         document.getElementById('play-pause').innerHTML = iconPlay;
         document.getElementById('btn-repeat').innerHTML = iconRepeat;
         document.getElementById('app-logo').style.backgroundImage = `url('${spotifyLogo}')`;
+
+        // Function to handle Fullscreen & lock window dragging
+        function toggleFullscreenJS() {
+            isFullscreen = !isFullscreen;
+            const dragRegion = document.querySelector('.drag-region');
+            
+            if (isFullscreen) {
+                // Remove webkit-app-region so you can't drag the screen when maxed
+                dragRegion.style.webkitAppRegion = "no-drag";
+                dragRegion.style.cursor = "default";
+            } else {
+                // Restore dragging behavior
+                dragRegion.style.webkitAppRegion = "drag";
+                dragRegion.style.cursor = "move";
+            }
+            pywebview.api.toggle_maximize();
+        }
+
+        // Function to update the background blur dynamically
+        function updateBlur(val) {
+            document.getElementById('bg-blur').style.filter = `blur(${val}px) brightness(0.25)`;
+        }
+
+        setInterval(() => {
+            if (isPlayingLocal && !isDragging) {
+                localProgressMs += 100;
+                if (localProgressMs > trackDurationMs) localProgressMs = trackDurationMs;
+                
+                document.getElementById('progress-bar').value = localProgressMs;
+                document.getElementById('time-current').innerText = formatTime(localProgressMs);
+                syncLyricsScroll(localProgressMs);
+            }
+        }, 100);
 
         function formatTime(ms) {
             const totalSeconds = Math.floor(ms / 1000);
@@ -230,11 +325,11 @@
                 document.getElementById('art').style.display = "none";
                 document.getElementById('refresh-btn').style.display = "inline-block";
                 document.getElementById('active-device-name').innerText = "Disconnected";
+                isPlayingLocal = false;
             }
         }
 
         function updateUI(data) {
-            // Populate devices
             if (data.devices) {
                 document.getElementById('active-device-name').innerText = data.active_device;
                 let html = "";
@@ -258,23 +353,116 @@
                     document.getElementById('art').src = data.thumb;
                     document.getElementById('bg-blur').src = data.thumb;
                     document.getElementById('bg-blur').style.opacity = "1";
+                    document.getElementById('lyrics-content').innerHTML = "Loading lyrics...";
+                    parsedLyrics = []; 
+                }
+
+                isPlayingLocal = data.is_playing;
+                trackDurationMs = data.length;
+                document.getElementById('progress-bar').max = trackDurationMs;
+                document.getElementById('time-total').innerText = formatTime(trackDurationMs);
+                
+                if (isPlayingLocal) {
+                    document.getElementById('art-wrapper').classList.add('playing');
+                } else {
+                    document.getElementById('art-wrapper').classList.remove('playing');
+                }
+
+                if (!isDragging && Math.abs(localProgressMs - data.time) > 1500) {
+                    localProgressMs = data.time;
+                    document.getElementById('progress-bar').value = localProgressMs;
                 }
 
                 document.getElementById('play-pause').innerHTML = data.is_playing ? iconPause : iconPlay;
                 document.getElementById('btn-shuffle').classList.toggle('active', data.shuffle);
                 document.getElementById('btn-repeat').classList.toggle('active', data.repeat !== 'off');
-
-                if (!isDragging) {
-                    document.getElementById('progress-bar').max = data.length;
-                    document.getElementById('progress-bar').value = data.time;
-                    document.getElementById('time-current').innerText = formatTime(data.time);
-                    document.getElementById('time-total').innerText = formatTime(data.length);
+                
+                if(document.activeElement !== document.getElementById('volume-bar')) {
+                    document.getElementById('volume-bar').value = data.volume;
                 }
-                document.getElementById('volume-bar').value = data.volume;
             } else if (data.status === "no_track") {
                 document.getElementById('title').innerText = "Ready";
                 document.getElementById('artist').innerText = "Select a track to play";
                 document.getElementById('art').style.display = "none";
+                isPlayingLocal = false;
+            }
+        }
+
+        function updateLyrics(lyricsText) {
+            const container = document.getElementById('lyrics-content');
+            parsedLyrics = [];
+            
+            if (!lyricsText || lyricsText.includes("No lyrics found") || lyricsText.includes("Error")) {
+                container.innerHTML = `<div style="opacity: 0.5; margin-top: 50px;">${lyricsText}</div>`;
+                return;
+            }
+
+            const lines = lyricsText.split('\n');
+            const syncRegex = /^\[(\d{2}):(\d{2}\.\d{2})\](.*)/;
+            
+            let html = '';
+            lines.forEach((line, index) => {
+                const match = line.match(syncRegex);
+                if (match) {
+                    const min = parseInt(match[1]);
+                    const sec = parseFloat(match[2]);
+                    const timeMs = (min * 60 + sec) * 1000;
+                    const text = match[3].trim() || '♪'; 
+                    parsedLyrics.push({ time: timeMs, index: index });
+                    html += `<div class="lyric-line" id="lyric-${index}" onclick="seekAudio(${timeMs})">${text}</div>`;
+                } else if (line.trim() !== '') {
+                    html += `<div style="margin-bottom: 10px;">${line}</div>`;
+                }
+            });
+
+            container.innerHTML = html || `<div style="opacity: 0.5; margin-top: 50px;">Instrumental / No Lyrics</div>`;
+        }
+
+        function syncLyricsScroll(currentMs) {
+            if (!isLyricsOpen || parsedLyrics.length === 0) return;
+            
+            let activeIndex = -1;
+            for (let i = 0; i < parsedLyrics.length; i++) {
+                if (currentMs >= parsedLyrics[i].time) {
+                    activeIndex = parsedLyrics[i].index;
+                } else {
+                    break;
+                }
+            }
+
+            if (activeIndex !== -1) {
+                // Prevent constant recalculations if the line hasn't changed
+                const currentActive = document.querySelector('.lyric-line.active');
+                if (currentActive && currentActive.id === `lyric-${activeIndex}`) return;
+
+                document.querySelectorAll('.lyric-line.active').forEach(el => el.classList.remove('active'));
+                
+                const activeEl = document.getElementById(`lyric-${activeIndex}`);
+                if (activeEl) {
+                    activeEl.classList.add('active');
+                    
+                    // FIX: We now calculate the strict internal scroll position instead 
+                    // of using .scrollIntoView(), which was causing the whole window to shift
+                    const container = document.getElementById('lyrics-content');
+                    const offset = activeEl.offsetTop - (container.clientHeight / 2) + (activeEl.clientHeight / 2);
+                    
+                    container.scrollTo({ top: offset, behavior: 'smooth' });
+                }
+            }
+        }
+
+        function toggleLyricsPanel() {
+            isLyricsOpen = !isLyricsOpen;
+            const overlay = document.getElementById('lyrics-overlay');
+            const btn = document.getElementById('btn-lyrics');
+            
+            if (isLyricsOpen) {
+                overlay.classList.add('show');
+                btn.classList.add('active');
+                syncLyricsScroll(localProgressMs);
+            } else {
+                overlay.classList.remove('show');
+                btn.classList.remove('active');
             }
         }
 
@@ -288,10 +476,18 @@
             toggleDeviceList();
         }
 
+        function userDragging() { isDragging = true; }
+        function seekAudio(val) { 
+            isDragging = false; 
+            localProgressMs = parseInt(val);
+            document.getElementById('time-current').innerText = formatTime(localProgressMs);
+            pywebview.api.set_time(val); 
+            syncLyricsScroll(localProgressMs);
+        }
+
         function refreshApp() { pywebview.api.ensure_active(); }
         function toggle() { pywebview.api.toggle_audio(); }
         function skip(dir) { pywebview.api.skip(dir); }
-        function seekAudio(val) { isDragging = false; pywebview.api.set_time(val); }
         function changeVolume(val) { pywebview.api.set_volume(val); }
         function toggleShuffle() { pywebview.api.toggle_shuffle(); }
         function toggleRepeat() { pywebview.api.toggle_repeat(); }
