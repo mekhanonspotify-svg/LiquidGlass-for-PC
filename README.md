@@ -2,12 +2,11 @@
 
 # 💧 LiquidGlass for PC
 
-A **glassmorphism Spotify desktop remote** inspired by Apple’s **Liquid Glass** design language.
+### A glassmorphism Spotify desktop remote inspired by Apple’s Liquid Glass design language
 
-Dynamic blur • Reactive colors • Device switching • Spotify controls • Built with Python + PyWebView
+Dynamic blur • Reactive colors • Lyrics • Device switching • Spotify controls
 
-<img width="1918" height="1008" alt="Screenshot 2026-05-15 144619" src="https://github.com/user-attachments/assets/4a7c99e6-585c-4773-9b12-c1b2dbd5bd13" />
-
+<img width="1918" height="1008" alt="LiquidGlass UI" src="https://github.com/user-attachments/assets/4a7c99e6-585c-4773-9b12-c1b2dbd5bd13"/>
 
 <br>
 
@@ -16,171 +15,198 @@ Dynamic blur • Reactive colors • Device switching • Spotify controls • B
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
 ![Status](https://img.shields.io/badge/Status-WIP-orange)
 
+<br>
+
+A Spotify desktop remote that feels **alive** — with reactive glass effects, dynamic colors, animated backgrounds, and seamless playback control.
+
+⭐ Star the repo if you like it
+
 </div>
 
 ---
 
-> ⚠️ **Work in Progress:** Expect bugs, active improvements, and new features. A stable internet connection is required for smooth playback syncing.
+> ⚠️ **Work in Progress**  
+> Expect bugs, active changes, and unfinished features. Stable internet is recommended for smoother syncing.
 
 ---
 
-## ✨ About
+# ✨ Features
 
-**LiquidGlass for PC** is a desktop Spotify remote featuring a **dynamic glassmorphism interface**, reactive colors extracted from album artwork, animated blur effects, and seamless Spotify device switching.
+### 🎨 Reactive Visuals
+- Dynamic colors extracted from album artwork
+- Animated **Liquid Glass** blur effects
+- Reactive backgrounds & floating UI blobs
+- Smooth transitions between tracks
 
-Most Spotify remotes feel static. LiquidGlass adapts in real time using:
-- 🎨 Album artwork color extraction
-- 💧 Dynamic blur effects
-- 🌈 Reactive backgrounds
-- 🫧 Animated UI elements
-- ⚡ Device syncing & playback transfer
+### 🎵 Spotify Controls
+- Play / pause / skip
+- Volume control
+- Shuffle & repeat
+- Live playback progress tracking
+- Playback transfer between devices
 
-Built for people who want music controls to feel alive.
+### 📜 Lyrics Support
+Uses a custom lyrics API instead of relying solely on Spotify, allowing lyrics for tracks Spotify may not provide.
+
+### 💻 Desktop Experience
+- Frameless window
+- Custom controls
+- Lightweight interface
+- Auto reconnect to devices
 
 ---
 
-## ✨ Features
-
-- **Dynamic Colors:** Extracted directly from album artwork.
-- **Liquid Glass UI:** Animated blur and reactive blobs.
-- **Full Playback Controls:** Play, pause, skip, volume adjustment, shuffle, and repeat.
-- **Live Progress Tracking:** Real-time playback status.
-- **Independent Lyrics Fetching:** Uses a custom API to find and display lyrics, bypassing Spotify's limitations to support tracks that normally lack lyrics.
-- **Device Management:** Switch between Spotify devices and auto-wake/reconnect inactive ones.
-- **Frameless Window:** Custom desktop controls for a clean aesthetic.
-
----
-
-## 🎬 Demo & Screenshots
+# 🎬 Preview
 
 <p align="center">
-<img width="900" height="471" alt="LG" src="https://github.com/user-attachments/assets/d9e3428f-8131-4ac1-a7f6-ddec0137754c" />
+<img width="900" src="https://github.com/user-attachments/assets/d9e3428f-8131-4ac1-a7f6-ddec0137754c"/>
 </p>
 
 ### Main Interface
-<img width="1918" height="1008" alt="Screenshot 2026-05-15 144619" src="https://github.com/user-attachments/assets/a8b2b58d-d49b-4142-a242-c767b5329299" />
-<br>
-<img width="1914" height="1004" alt="Screenshot 2026-05-15 175020" src="https://github.com/user-attachments/assets/826a79c8-3bd0-4718-b40c-42391592a021" />
+
+<img src="https://github.com/user-attachments/assets/a8b2b58d-d49b-4142-a242-c767b5329299"/>
+
+<img src="https://github.com/user-attachments/assets/826a79c8-3bd0-4718-b40c-42391592a021"/>
 
 ### Lyrics
-<img width="1150" height="907" alt="image" src="https://github.com/user-attachments/assets/e07793f5-f199-41ce-84bb-af6e9dfb5353" />
+
+<img src="https://github.com/user-attachments/assets/e07793f5-f199-41ce-84bb-af6e9dfb5353"/>
 
 ---
 
-## 💻 Compatibility
+# 💻 Compatibility
 
-| Platform | Supported |
-|----------|:---------:|
-| Windows  | ✅        |
-| macOS    | ❌        |
-| Linux    | ❌        |
+| Platform | Support |
+|----------|----------|
+| Windows | ✅ |
+| macOS | ❌ |
+| Linux | ❌ |
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Installation
 
-**1. Clone the repository:**
+Clone the repository:
+
 ```bash
-git clone [https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git](https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git)
+git clone https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git
 cd LiquidGlass-for-PC
-
 ```
 
-*(Alternatively, download the ZIP directly from GitHub.)*
-
-**2. Install Dependencies:**
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-
 ```
 
-*(Or manually: `pip install pywebview requests spotipy PyQt6 colorthief`)*
+Or manually:
 
-**3. Run the Application:**
+```bash
+pip install pywebview requests spotipy PyQt6 colorthief
+```
+
+Run:
 
 ```bash
 python Main.py
-
 ```
 
-> **Note:** The first launch will automatically open your browser for Spotify authentication. After connecting, LiquidGlass detects available devices and allows playback transfer.
+---
+
+## First Launch
+
+The app will automatically open a browser window for Spotify authentication.
+
+After logging in:
+
+1. LiquidGlass detects available devices
+2. You can transfer playback
+3. Reactive UI updates begin automatically
 
 ---
 
-## 📂 Post-Installation Cleanup (Optional)
+# 📂 Minimal Runtime Files (Optional Cleanup)
 
-For a clean deployment without repository bloat, you only need the essential runtime files.
+Keep:
 
-**✅ Keep these files:**
+```txt
+Main.py
+index.html
+API.JSON
+```
 
-* `Main.py`
-* `index.html`
-* `API.JSON`
-*(⚠️ **Note:** If you see any other files not on this list, keep them. They were likely generated by the Spotify API, such as auth tokens).*
+Also keep any generated authentication/token files.
 
-**✖️ Safe to delete:**
+Safe to remove:
 
-* `Images/`
-* `LICENSE`
-* `README.md`
-* `latest.version`
-* `requirements.txt`
-
----
-
-## 🐞 Known Issues
-
-Cross-device support and stability improvements are actively being worked on. Current issues include:
-
-* Occasional lag or delayed updates on unstable internet connections.
-* Rare freezes/crashes (restarting the app usually resolves this).
-* Device switching may occasionally take extra time.
+```txt
+Images/
+README.md
+LICENSE
+requirements.txt
+latest.version
+```
 
 ---
 
-## 🛠 Built With
+# 🐞 Known Issues
 
-* **Python** (Backend & Logic)
-* **PyWebView & PyQt6** (Window rendering)
-* **Spotipy** (Spotify API Integration)
-* **HTML / CSS / JavaScript** (Frontend UI)
-* **ColorThief** (Color extraction)
+Current limitations:
 
----
-
-## 🗺 Roadmap
-
-**🚧 In Progress**
-
-* [ ] Lyrics support
-* [ ] Performance optimizations
-* [ ] Additional visual effects
-* [ ] Better multi-device support
-* [ ] Improved stability
-
-**📌 Planned**
-
-* [ ] Mini mode
+- Delayed updates on unstable connections
+- Rare freezes/crashes
+- Device switching can occasionally lag
+- Multi-device syncing still being improved
 
 ---
 
-## ⬆️ Comming Features
+# 🛠 Built With
 
-**Begging to update**
-<img width="1090" height="229" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/2e78d457-d0ef-4692-bd35-f1608aba7e83" />
-
----
-
-## 🤝 Contributing
-
-Contributions, ideas, and bug reports are welcome! Open an issue or submit a pull request if you'd like to help improve LiquidGlass.
+- Python
+- PyWebView
+- PyQt6
+- Spotipy
+- HTML / CSS / JavaScript
+- ColorThief
 
 ---
 
-## 📄 License
+# 🗺 Roadmap
 
-Released under the **MIT License**.
+### In Progress
+
+- [ ] Performance optimizations
+- [ ] Better multi-device support
+- [ ] Improved stability
+- [ ] More visual effects
+
+### Planned
+
+- [ ] Mini mode
+- [ ] Theme customization
+- [ ] Additional animations
+
+---
+
+# 🔮 Upcoming
+
+<img width="1090" src="https://github.com/user-attachments/assets/2e78d457-d0ef-4692-bd35-f1608aba7e83"/>
+
+---
+
+# 🤝 Contributing
+
+Bug reports, ideas, and pull requests are welcome.
+
+If something breaks, open an issue.
+
+If you improve something, submit a PR.
+
+---
+
+# 📄 License
+
+Released under the **MIT License**
 
 ---
 
@@ -188,9 +214,6 @@ Released under the **MIT License**.
 
 ### Made with 💖 by **SoulNova**
 
+*"Music controls shouldn't feel static."*
 
-
-
-⭐ *If you like the project, consider starring the repository!*
-
-<br>
+</div>
