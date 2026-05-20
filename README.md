@@ -4,9 +4,9 @@
 
 ### A glassmorphism Spotify desktop remote inspired by Apple’s Liquid Glass design language
 
-Dynamic blur • Reactive colors • Lyrics • Device switching • Spotify controls
+Dynamic blur • Reactive colors • Playback control • Device switching • Built with Python + PyWebView
 
-<img width="1918" height="1008" alt="LiquidGlass UI" src="https://github.com/user-attachments/assets/4a7c99e6-585c-4773-9b12-c1b2dbd5bd13"/>
+<img width="1918" height="1008" alt="LiquidGlass Preview" src="https://github.com/user-attachments/assets/4a7c99e6-585c-4773-9b12-c1b2dbd5bd13" />
 
 <br>
 
@@ -15,62 +15,75 @@ Dynamic blur • Reactive colors • Lyrics • Device switching • Spotify con
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
 ![Status](https://img.shields.io/badge/Status-WIP-orange)
 
-<br>
-
-A Spotify desktop remote that feels **alive** — with reactive glass effects, dynamic colors, animated backgrounds, and seamless playback control.
-
-⭐ Star the repo if you like it
-
 </div>
 
 ---
 
 > ⚠️ **Work in Progress**  
-> Expect bugs, active changes, and unfinished features. Stable internet is recommended for smoother syncing.
+> LiquidGlass is actively evolving. Expect bugs, unfinished features, and frequent updates. A stable internet connection is recommended for smooth syncing.
 
 ---
 
-# ✨ Features
+# ✨ About
 
-### 🎨 Reactive Visuals
-- Dynamic colors extracted from album artwork
-- Animated **Liquid Glass** blur effects
-- Reactive backgrounds & floating UI blobs
-- Smooth transitions between tracks
+**LiquidGlass for PC** transforms Spotify controls into a dynamic desktop experience using glassmorphism, reactive album colors, animated blur effects, and seamless playback management.
 
-### 🎵 Spotify Controls
-- Play / pause / skip
-- Volume control
-- Shuffle & repeat
-- Live playback progress tracking
-- Playback transfer between devices
+Unlike traditional Spotify remotes, LiquidGlass adapts in real time:
 
-### 📜 Lyrics Support
-Uses a custom lyrics API instead of relying solely on Spotify, allowing lyrics for tracks Spotify may not provide.
+- 🎨 Album artwork color extraction  
+- 💧 Liquid-inspired blur effects  
+- 🌈 Reactive backgrounds  
+- 🫧 Animated UI elements  
+- ⚡ Live playback syncing & device transfer  
 
-### 💻 Desktop Experience
-- Frameless window
-- Custom controls
-- Lightweight interface
-- Auto reconnect to devices
+Built for people who want music controls to feel alive.
 
 ---
 
-# 🎬 Preview
+# 🚀 Features
+
+### 🎵 Playback Controls
+- Play / Pause
+- Skip & Previous
+- Volume adjustment
+- Shuffle & Repeat
+- Real-time progress tracking
+
+### 🎨 Dynamic Visuals
+- Album-based color extraction
+- Animated glassmorphism effects
+- Reactive backgrounds
+- Frameless desktop interface
+
+### 🔄 Device Management
+- Switch between Spotify devices
+- Auto-detect active sessions
+- Wake inactive devices when possible
+
+### 📜 Lyrics *(Experimental)*
+Uses an independent lyrics API to provide lyrics beyond Spotify's native availability.
+
+---
+
+# 🎬 Demo & Screenshots
 
 <p align="center">
 <img width="900" src="https://github.com/user-attachments/assets/d9e3428f-8131-4ac1-a7f6-ddec0137754c"/>
 </p>
 
-### Main Interface
+## Main Interface
 
-<img src="https://github.com/user-attachments/assets/a8b2b58d-d49b-4142-a242-c767b5329299"/>
+<img width="1918" src="https://github.com/user-attachments/assets/a8b2b58d-d49b-4142-a242-c767b5329299"/>
 
-<img src="https://github.com/user-attachments/assets/826a79c8-3bd0-4718-b40c-42391592a021"/>
+<br>
 
-### Lyrics
+<img width="1914" src="https://github.com/user-attachments/assets/826a79c8-3bd0-4718-b40c-42391592a021"/>
 
-<img src="https://github.com/user-attachments/assets/e07793f5-f199-41ce-84bb-af6e9dfb5353"/>
+---
+
+## Lyrics *(Preview / Under Development)*
+
+<img width="1150" src="https://github.com/user-attachments/assets/e07793f5-f199-41ce-84bb-af6e9dfb5353"/>
 
 ---
 
@@ -84,68 +97,58 @@ Uses a custom lyrics API instead of relying solely on Spotify, allowing lyrics f
 
 ---
 
-# 🚀 Installation
+# 🚀 Getting Started
 
-Clone the repository:
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/mekhanonspotify-svg/LiquidGlass-for-PC.git
 cd LiquidGlass-for-PC
 ```
 
-Install dependencies:
+Or download the ZIP directly from GitHub.
+
+### 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Or manually:
+Manual install:
 
 ```bash
 pip install pywebview requests spotipy PyQt6 colorthief
 ```
 
-Run:
+### 3. Run
 
 ```bash
 python Main.py
 ```
 
----
-
-## First Launch
-
-The app will automatically open a browser window for Spotify authentication.
-
-After logging in:
-
-1. LiquidGlass detects available devices
-2. You can transfer playback
-3. Reactive UI updates begin automatically
+The first launch opens Spotify authentication in your browser automatically. After signing in, LiquidGlass detects available devices and enables playback transfer.
 
 ---
 
-# 📂 Minimal Runtime Files (Optional Cleanup)
+# 📂 Optional Cleanup
 
-Keep:
+For minimal deployment, keep:
 
-```txt
-Main.py
-index.html
-API.JSON
-```
+✅ Required:
 
-Also keep any generated authentication/token files.
+- `Main.py`
+- `index.html`
+- `API.JSON`
+
+Also keep any generated Spotify authentication files.
 
 Safe to remove:
 
-```txt
-Images/
-README.md
-LICENSE
-requirements.txt
-latest.version
-```
+- `Images/`
+- `README.md`
+- `LICENSE`
+- `requirements.txt`
+- `latest.version`
 
 ---
 
@@ -153,42 +156,44 @@ latest.version
 
 Current limitations:
 
-- Delayed updates on unstable connections
-- Rare freezes/crashes
-- Device switching can occasionally lag
-- Multi-device syncing still being improved
+- Occasional playback delay on unstable connections
+- Rare freezes/crashes *(restart usually fixes them)*
+- Device switching may take additional time
+- Cross-device syncing needs refinement
 
 ---
 
 # 🛠 Built With
 
-- Python
-- PyWebView
-- PyQt6
-- Spotipy
-- HTML / CSS / JavaScript
-- ColorThief
+- **Python** → Backend logic
+- **PyWebView + PyQt6** → Desktop rendering
+- **Spotipy** → Spotify API integration
+- **HTML / CSS / JavaScript** → UI
+- **ColorThief** → Album color extraction
 
 ---
 
 # 🗺 Roadmap
 
-### In Progress
+### 🚧 In Progress
 
-- [ ] Performance optimizations
-- [ ] Better multi-device support
-- [ ] Improved stability
-- [ ] More visual effects
+- [ ] Lyrics support improvements
+- [ ] Performance optimization
+- [ ] Better stability
+- [ ] Enhanced multi-device support
+- [ ] Additional UI effects
 
-### Planned
+### 📌 Planned
 
 - [ ] Mini mode
-- [ ] Theme customization
-- [ ] Additional animations
+- [ ] More customization options
+- [ ] Expanded platform support
 
 ---
 
-# 🔮 Upcoming
+# ⬆️ Upcoming Features
+
+### "Begging to update" 😭
 
 <img width="1090" src="https://github.com/user-attachments/assets/2e78d457-d0ef-4692-bd35-f1608aba7e83"/>
 
@@ -196,11 +201,9 @@ Current limitations:
 
 # 🤝 Contributing
 
-Bug reports, ideas, and pull requests are welcome.
+Contributions, ideas, and bug reports are welcome.
 
-If something breaks, open an issue.
-
-If you improve something, submit a PR.
+Open an issue or submit a pull request to help improve **LiquidGlass**.
 
 ---
 
@@ -214,6 +217,6 @@ Released under the **MIT License**
 
 ### Made with 💖 by **SoulNova**
 
-*"Music controls shouldn't feel static."*
+⭐ If you like the project, consider starring the repository.
 
 </div>
