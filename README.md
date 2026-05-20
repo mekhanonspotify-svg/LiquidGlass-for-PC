@@ -6,7 +6,8 @@ A **glassmorphism Spotify desktop remote** inspired by Apple’s **Liquid Glass*
 
 Dynamic blur • Reactive colors • Device switching • Spotify controls • Built with Python + PyWebView
 
-<img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
+<img width="1918" height="1008" alt="Screenshot 2026-05-15 144619" src="https://github.com/user-attachments/assets/4a7c99e6-585c-4773-9b12-c1b2dbd5bd13" />
+
 
 <br>
 
@@ -53,16 +54,16 @@ Built for people who want music controls to feel alive.
 ## 🎬 Demo & Screenshots
 
 <p align="center">
-<img src="Images/LG.gif" width="900"/>
+<img width="900" height="471" alt="LG" src="https://github.com/user-attachments/assets/d9e3428f-8131-4ac1-a7f6-ddec0137754c" />
 </p>
 
 ### Main Interface
-<img src="Images/Screenshot 2026-05-15 144619.png" width="900"/>
+<img width="1918" height="1008" alt="Screenshot 2026-05-15 144619" src="https://github.com/user-attachments/assets/a8b2b58d-d49b-4142-a242-c767b5329299" />
 <br>
-<img src="Images/Screenshot 2026-05-15 175020.png" width="900"/>
+<img width="1914" height="1004" alt="Screenshot 2026-05-15 175020" src="https://github.com/user-attachments/assets/826a79c8-3bd0-4718-b40c-42391592a021" />
 
 ### Lyrics
-<img src="Images/image.png" width="900"/>
+<img width="1150" height="907" alt="image" src="https://github.com/user-attachments/assets/e07793f5-f199-41ce-84bb-af6e9dfb5353" />
 
 ---
 
